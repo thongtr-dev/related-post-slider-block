@@ -14,16 +14,11 @@
  * @package           create-block
  */
 
-function render_callback($block_attributes, $content)
+function related_posts_slider_render_callback($block_attributes, $content)
 {
-	$recent_posts = wp_get_recent_posts(array(
-		'numberposts' => 3,
-		'post_status' => 'publish',
-	));
 
-	if (count($recent_posts) === 0) {
-		return 'No posts';
-	}
+	$wrapper_attributtes = get_block_wrapper_attributes();
+	return sprintf('<div %1s>%2s</div>', $wrapper_attributtes, 'This is from PHP!');
 }
 
 /**
@@ -35,6 +30,8 @@ function render_callback($block_attributes, $content)
  */
 function create_block_related_posts_slider_block_init()
 {
-	register_block_type(__DIR__ . '/build');
+	register_block_type(__DIR__ . '/build', array(
+		'render_callback' => 'related_posts_slider_render_callback'
+	));
 }
 add_action('init', 'create_block_related_posts_slider_block_init');
