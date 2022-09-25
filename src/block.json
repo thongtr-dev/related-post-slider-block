@@ -5,8 +5,8 @@
 	"version": "0.1.0",
 	"title": "Related Posts Slider Block",
 	"category": "widgets",
-	"icon": "smiley",
-	"description": "Example static block scaffolded with Create Block tool.",
+	"icon": "slides",
+	"description": "Display related posts as a slider",
 	"supports": {
 		"html": false
 	},

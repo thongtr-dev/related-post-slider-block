@@ -1,17 +1,30 @@
 <?php
+
 /**
  * Plugin Name:       Related Posts Slider Block
- * Description:       Example static block scaffolded with Create Block tool.
+ * Description:       Related posts block with slider functionality.
  * Requires at least: 5.9
  * Requires PHP:      7.0
- * Version:           0.1.0
- * Author:            The WordPress Contributors
+ * Version:           1.0.0
+ * Author:            Thong Truong
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       related-posts-slider-block
  *
  * @package           create-block
  */
+
+function render_callback($block_attributes, $content)
+{
+	$recent_posts = wp_get_recent_posts(array(
+		'numberposts' => 3,
+		'post_status' => 'publish',
+	));
+
+	if (count($recent_posts) === 0) {
+		return 'No posts';
+	}
+}
 
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
@@ -20,7 +33,8 @@
  *
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
-function create_block_related_posts_slider_block_block_init() {
-	register_block_type( __DIR__ . '/build' );
+function create_block_related_posts_slider_block_init()
+{
+	register_block_type(__DIR__ . '/build');
 }
-add_action( 'init', 'create_block_related_posts_slider_block_block_init' );
+add_action('init', 'create_block_related_posts_slider_block_init');
