@@ -5,10 +5,28 @@
 	"version": "1.0.0",
 	"title": "Related Posts Slider Block",
 	"category": "widgets",
-	"icon": "slides",
+	"icon": "list-view",
 	"description": "Display related posts as a slider.",
 	"supports": {
 		"html": false
+	},
+	"attributes": {
+		"totalPostsToShow": {
+			"type": "number",
+			"default": 9
+		},
+		"postsPerSlide": {
+			"type": "number",
+			"default": 3
+		},
+		"order": {
+			"type": "string",
+			"default": "DESC"
+		},
+		"orderBy": {
+			"type": "string",
+			"default": "date"
+		}
 	},
 	"textdomain": "related-posts-slider-block",
 	"editorScript": "file:./index.js",
