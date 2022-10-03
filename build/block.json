@@ -8,7 +8,11 @@
   "icon": "list-view",
   "description": "Display related posts as a slider.",
   "supports": {
-    "html": false
+    "html": false,
+    "align": [
+      "full",
+      "wide"
+    ]
   },
   "attributes": {
     "totalPostsToShow": {
