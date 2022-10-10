@@ -23,12 +23,6 @@ import { useBlockProps } from "@wordpress/block-editor";
  * @return {WPElement} Element to render.
  */
 export default function save() {
-	return (
-		<p {...useBlockProps.save()}>
-			{__(
-				"Related Posts Slider Block – hello from the saved content!",
-				"related-posts-slider-block"
-			)}
-		</p>
-	);
+	const blockProps = useBlockProps.save();
+	return <div {...blockProps} />;
 }
