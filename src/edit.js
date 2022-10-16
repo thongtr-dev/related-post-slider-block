@@ -2,6 +2,8 @@
  * External dependencies
  */
 import Slider from "react-slick";
+import "../node_modules/slick-carousel/slick/slick.css";
+import "../node_modules/slick-carousel/slick/slick-theme.css";
 
 /**
  * Retrieves the translation of text.
@@ -28,8 +30,6 @@ import "./editor.scss";
 
 import { useSelect } from "@wordpress/data";
 
-import Block from "./block";
-
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -45,26 +45,52 @@ export default function Edit({ attributes, setAttributes }) {
 
 	const posts = useSelect(
 		(select) => {
-			return select("core").getEntityRecords("postType", "post", {
+			const posts = select("core").getEntityRecords("postType", "post", {
 				per_page: totalPostsToShow,
+				_embed: true,
 			});
+			return posts;
 		},
 		[totalPostsToShow]
 	);
 
+	const sliderSettings = {
+		dots: true,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 3,
+		slidesToScroll: 3,
+	};
+
+	const isLoading = useSelect((select) => {
+		return select("core/data").isResolving("core", "getEntityRecords", [
+			"postType",
+			"post",
+		]);
+	});
+
+	if (isLoading) {
+		return <p>Loading</p>;
+	}
+
 	return (
 		<div {...blockProps}>
-			<ul>
-				{!posts && <li>Loading...</li>}
-				{posts && posts.length === 0 && <li>No posts</li>}
+			<Slider {...sliderSettings}>
 				{posts &&
 					posts.length > 0 &&
 					posts.map((post) => (
-						<li key={post.id}>
+						<div key={post.id}>
+							<a href={post.link}>
+								<img
+									src={post._embedded["wp:featuredmedia"][0].source_url}
+									width={`${100}%`}
+									alt={post._embedded["wp:featuredmedia"][0].alt_text}
+								/>
+							</a>
 							<a href={post.link}>{post.title.rendered}</a>
-						</li>
+						</div>
 					))}
-			</ul>
+			</Slider>
 		</div>
 	);
 }
