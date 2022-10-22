@@ -18,5 +18,8 @@
 		"@wordpress/scripts": "^21.0.2",
 		"classnames": "^2.3.2",
 		"react-slick": "^0.29.0"
+	},
+	"dependencies": {
+		"axios": "^1.1.3"
 	}
 }

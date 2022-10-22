@@ -26,8 +26,6 @@ import { useBlockProps } from "@wordpress/block-editor";
  */
 import "./editor.scss";
 
-import { useSelect } from "@wordpress/data";
-
 import Block from "./block";
 
 /**
