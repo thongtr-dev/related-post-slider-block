@@ -1,11 +1,4 @@
 /**
- * External dependencies
- */
-import Slider from "react-slick";
-import "../node_modules/slick-carousel/slick/slick.css";
-import "../node_modules/slick-carousel/slick/slick-theme.css";
-
-/**
  * Retrieves the translation of text.
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
@@ -28,8 +21,6 @@ import { useBlockProps } from "@wordpress/block-editor";
  */
 import "./editor.scss";
 
-import { useSelect } from "@wordpress/data";
-
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -38,59 +29,13 @@ import { useSelect } from "@wordpress/data";
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit({ attributes, setAttributes }) {
-	const blockProps = useBlockProps();
-
-	const { totalPostsToShow } = attributes;
-
-	const posts = useSelect(
-		(select) => {
-			const posts = select("core").getEntityRecords("postType", "post", {
-				per_page: totalPostsToShow,
-				_embed: true,
-			});
-			return posts;
-		},
-		[totalPostsToShow]
-	);
-
-	const sliderSettings = {
-		dots: true,
-		infinite: true,
-		speed: 500,
-		slidesToShow: 3,
-		slidesToScroll: 3,
-	};
-
-	const isLoading = useSelect((select) => {
-		return select("core/data").isResolving("core", "getEntityRecords", [
-			"postType",
-			"post",
-		]);
-	});
-
-	if (isLoading) {
-		return <p>Loading</p>;
-	}
-
+export default function Edit() {
 	return (
-		<div {...blockProps}>
-			<Slider {...sliderSettings}>
-				{posts &&
-					posts.length > 0 &&
-					posts.map((post) => (
-						<div key={post.id}>
-							<a href={post.link}>
-								<img
-									src={post._embedded["wp:featuredmedia"][0].source_url}
-									width={`${100}%`}
-									alt={post._embedded["wp:featuredmedia"][0].alt_text}
-								/>
-							</a>
-							<a href={post.link}>{post.title.rendered}</a>
-						</div>
-					))}
-			</Slider>
-		</div>
+		<p {...useBlockProps()}>
+			{__(
+				"Related Posts Slider Block – hello from the editor!",
+				"related-posts-slider-block"
+			)}
+		</p>
 	);
 }
