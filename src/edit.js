@@ -1,4 +1,9 @@
 /**
+ * External dependencies
+ */
+import Slider from "react-slick";
+
+/**
  * Retrieves the translation of text.
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-i18n/
@@ -21,6 +26,10 @@ import { useBlockProps } from "@wordpress/block-editor";
  */
 import "./editor.scss";
 
+import { useSelect } from "@wordpress/data";
+
+import Block from "./block";
+
 /**
  * The edit function describes the structure of your block in the context of the
  * editor. This represents what the editor will render when the block is used.
@@ -29,13 +38,12 @@ import "./editor.scss";
  *
  * @return {WPElement} Element to render.
  */
-export default function Edit() {
+export default function Edit({ attributes, setAttributes }) {
+	const blockProps = useBlockProps();
+
 	return (
-		<p {...useBlockProps()}>
-			{__(
-				"Related Posts Slider Block – hello from the editor!",
-				"related-posts-slider-block"
-			)}
-		</p>
+		<div {...blockProps}>
+			<Block {...attributes} />
+		</div>
 	);
 }
