@@ -1,12 +1,12 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
-	"name": "create-block/related-posts-slider-block",
+	"name": "create-block/related-post-slider-block",
 	"version": "1.0.0",
-	"title": "Related Posts Slider Block",
+	"title": "Related Post Slider Block",
 	"category": "widgets",
 	"icon": "list-view",
-	"description": "Display related posts as a slider.",
+	"description": "Add related post slider block.",
 	"supports": {
 		"html": false,
 		"align": ["full", "wide"]
@@ -29,7 +29,7 @@
 			"default": "date"
 		}
 	},
-	"textdomain": "related-posts-slider-block",
+	"textdomain": "related-post-slider-block",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",
 	"style": "file:./style-index.css"

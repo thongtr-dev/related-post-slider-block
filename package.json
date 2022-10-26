@@ -1,7 +1,7 @@
 {
-	"name": "related-posts-slider-block",
+	"name": "related-post-slider-block",
 	"version": "1.0.0",
-	"description": "Related posts block with slider functionality.",
+	"description": "Add related post slider block.",
 	"author": "Thong Truong",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
@@ -16,8 +16,8 @@
 	},
 	"devDependencies": {
 		"@wordpress/scripts": "^21.0.2",
-		"classnames": "^2.3.2",
-		"react-slick": "^0.29.0"
+		"react-slick": "^0.29.0",
+		"slick-carousel": "^1.8.1"
 	},
 	"dependencies": {
 		"axios": "^1.1.3"
