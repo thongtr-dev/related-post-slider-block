@@ -37,62 +37,55 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 	] = $block_attributes;
 
 	[
-		'featuredImage' => $display_featured_image,
-		'category' => $display_category,
-		'meta' => $display_meta,
-		'excerpt' => $display_excerpt
+		'displayFeaturedImage' => $display_featured_image,
+		'displayCategory' => $display_category,
+		'displayMeta' => $display_meta,
+		'displayExcerpt' => $display_excerpt,
+		'displayReverseOrder' => $reverse_order
 	] = $display;
 
-	$recent_posts = wp_get_recent_posts(array(
-		'numberposts' => $total_posts_to_show,
-		'post_status' => 'publish',
-	));
-
-	if (count($recent_posts) === 0) {
-		return 'No posts';
-	}
+	$related_posts = new WP_Query(
+		array(
+			'posts_per_page' => $total_posts_to_show,
+			'post_status' => 'publish',
+			'post__not_in' => array(get_the_ID()),
+			'category__in' => array(get_the_category(get_the_ID())[0]->term_id),
+			'order' => $reverse_order ? 'ASC' : 'DESC'
+		)
+	);
 
 	$output = '<div class="wp-block-create-block-related-post-slider-block">';
 
-	foreach ($recent_posts as $post) {
-		$post_id = $post['ID'];
+	if ($related_posts->have_posts()) {
+		foreach ($related_posts->posts as $post) {
+			$post_id = $post->ID;
+			$featured_image = $display_featured_image ? '<a href="' . esc_url(get_permalink($post_id)) . '"> ' .
+				wp_get_attachment_image(get_post_thumbnail_id($post_id), 'medium', false, array(
+					'class' => 'attachment-medium size-medium featured'
+				)) . '</a>' : '';
 
-		$featured_image = $display_featured_image ? '<a href="' . esc_url(get_permalink($post_id)) . '"> ' .
-			wp_get_attachment_image(get_post_thumbnail_id($post_id), 'medium', false, array(
-				'class' => 'attachment-medium size-medium featured'
-			))
-			. '</a>' : '';
+			$category = $display_category ? '<div class="term">
+			<a href="' . esc_url(get_category_link(get_the_category($post_id)[0])) . '">' . esc_html(get_the_category($post_id)[0]->name) . '</a>
+			</div>' : '';
 
-		$category = $display_category ? '<div class="term">
-		<a href="' . esc_url(get_category_link(get_the_category($post_id)[0])) . '">' . esc_html(get_the_category($post_id)[0]->name) . '</a>
-	</div>' : '';
-
-		$meta = $display_meta ? '<div class="meta">
-		<span class="byline">
+			$meta = $display_meta ? '<div class="meta">
+			<span class="byline">
 			By: <a href="' . esc_url(get_author_posts_url(get_post_field('post_author', $post_id))) . '">' . esc_html(get_the_author_meta('display_name', get_post_field('post_author', $post_id))) . '</a>
-		</span>
-		&nbsp;
-		<span class="posted-on">
+			</span>
+			&nbsp;
+			<span class="posted-on">
 			Published: ' . esc_html(get_the_date('Y-m-d', $post_id)) . '
-		</span>
-	</div>' : '';
+			</span>
+			</div>' : '';
 
-		$excerpt = $display_excerpt ? '<div class="excerpt"><p>
-	' . esc_html(substr(get_the_excerpt($post_id), 0, $block_attributes['excerptLength'])) . '...
-	</p></div>' : '';
+			$excerpt = $display_excerpt ? '<div class="excerpt"><p>' . esc_html(substr(get_the_excerpt($post_id), 0, $block_attributes['excerptLength'])) . '...</p></div>' : '';
 
-
-
-		$output .=
-			'<div key="' . esc_html($post_id) . '" class="related-post-slider-item"> ' . $featured_image . $category . '
-		
+			$output .= '<div key="' . esc_html($post_id) . '" class="related-post-slider-item"> ' . $featured_image . $category . '
 			<h3 class="title"><a href="' . esc_url(get_permalink($post_id)) . '">' . esc_html(get_the_title($post_id)) . '</a></h3> ' . $meta . $excerpt . '
-
 			</div>';
+		}
 	}
-
 	$output .= '</div>';
-
 	return $output;
 }
 
