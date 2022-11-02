@@ -12,6 +12,22 @@
 		"align": ["full", "wide"]
 	},
 	"attributes": {
+		"display":{
+			"type":"object",
+			"default": {
+				"displayFeaturedImage": true,
+				"displayCategory": true,
+				"displayMeta": true,
+				"displayExcerpt": true,
+				"displayDotsIndicator": true,
+				"displayArrowsIndicator": true,
+				"displayReverseOrder": false
+			}
+		},
+		"excerptLength": {
+			"type":"number",
+			"default": 125
+		},
 		"totalPostsToShow": {
 			"type": "number",
 			"default": 9
@@ -19,14 +35,6 @@
 		"postsPerSlide": {
 			"type": "number",
 			"default": 3
-		},
-		"order": {
-			"type": "string",
-			"default": "DESC"
-		},
-		"orderBy": {
-			"type": "string",
-			"default": "date"
 		}
 	},
 	"textdomain": "related-post-slider-block",

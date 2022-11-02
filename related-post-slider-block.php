@@ -25,45 +25,75 @@
 function create_block_related_post_slider_block_block_init()
 {
 	register_block_type(__DIR__ . '/build', array(
-		'render_callback' => 'related_post_slider_block_render_block_with_attributes'
+		'render_callback' => 'related_post_slider_block_render_callback'
 	));
 }
 
-// Copied from @wordpress/dependency-extraction-webpack-plugin docs.
-function related_post_slider_block_enqueue_frontend_script()
+function related_post_slider_block_render_callback($block_attributes, $content)
 {
-	$style_path       = 'build/index.css';
-	$style_url = plugins_url($style_path, __FILE__);
-	$script_path = 'build/frontend.js';
-	$script_asset_path = 'build/frontend.asset.php';
-	$script_asset = require($script_asset_path);
-	$script_url = plugins_url($script_path, __FILE__);
-	wp_enqueue_style('related-post-slider-block-script-style', $style_url, NULL,  $script_asset['version']);
-	wp_enqueue_script('related-post-slider-block-script', $script_url, $script_asset['dependencies'], $script_asset['version']);
-}
+	[
+		'totalPostsToShow' => $total_posts_to_show,
+		'display' => $display,
+	] = $block_attributes;
 
-// Copied from WooCommerce Blocks.
-function related_post_slider_block_add_attributes_to_block($attributes = [], $content = '')
-{
-	$escaped_data_attributes = [];
-	foreach ($attributes as $key => $value) {
-		if (is_bool($value)) {
-			$value = $value ? 'true' : 'false';
-		}
-		if (!is_scalar($value)) {
-			$value = wp_json_encode($value);
-		}
-		$escaped_data_attributes[] = 'data-' . esc_attr(strtolower(preg_replace('/(?<!\ )[A-Z]/', '-$0', $key))) . '="' . esc_attr($value) . '"';
-	}
-	return preg_replace('/^<div /', '<div ' . implode(' ', $escaped_data_attributes) . ' ', trim($content));
-}
+	[
+		'featuredImage' => $display_featured_image,
+		'category' => $display_category,
+		'meta' => $display_meta,
+		'excerpt' => $display_excerpt
+	] = $display;
 
-function related_post_slider_block_render_block_with_attributes($attributes = [], $content = '')
-{
-	if (!is_admin()) {
-		related_post_slider_block_enqueue_frontend_script();
+	$recent_posts = wp_get_recent_posts(array(
+		'numberposts' => $total_posts_to_show,
+		'post_status' => 'publish',
+	));
+
+	if (count($recent_posts) === 0) {
+		return 'No posts';
 	}
-	return related_post_slider_block_add_attributes_to_block($attributes, $content);
+
+	$output = '<div class="wp-block-create-block-related-post-slider-block">';
+
+	foreach ($recent_posts as $post) {
+		$post_id = $post['ID'];
+
+		$featured_image = $display_featured_image ? '<a href="' . esc_url(get_permalink($post_id)) . '"> ' .
+			wp_get_attachment_image(get_post_thumbnail_id($post_id), 'medium', false, array(
+				'class' => 'attachment-medium size-medium featured'
+			))
+			. '</a>' : '';
+
+		$category = $display_category ? '<div class="term">
+		<a href="' . esc_url(get_category_link(get_the_category($post_id)[0])) . '">' . esc_html(get_the_category($post_id)[0]->name) . '</a>
+	</div>' : '';
+
+		$meta = $display_meta ? '<div class="meta">
+		<span class="byline">
+			By: <a href="' . esc_url(get_author_posts_url(get_post_field('post_author', $post_id))) . '">' . esc_html(get_the_author_meta('display_name', get_post_field('post_author', $post_id))) . '</a>
+		</span>
+		&nbsp;
+		<span class="posted-on">
+			Published: ' . esc_html(get_the_date('Y-m-d', $post_id)) . '
+		</span>
+	</div>' : '';
+
+		$excerpt = $display_excerpt ? '<div class="excerpt"><p>
+	' . esc_html(substr(get_the_excerpt($post_id), 0, $block_attributes['excerptLength'])) . '...
+	</p></div>' : '';
+
+
+
+		$output .=
+			'<div key="' . esc_html($post_id) . '" class="related-post-slider-item"> ' . $featured_image . $category . '
+		
+			<h3 class="title"><a href="' . esc_url(get_permalink($post_id)) . '">' . esc_html(get_the_title($post_id)) . '</a></h3> ' . $meta . $excerpt . '
+
+			</div>';
+	}
+
+	$output .= '</div>';
+
+	return $output;
 }
 
 add_action('init', 'create_block_related_post_slider_block_block_init');

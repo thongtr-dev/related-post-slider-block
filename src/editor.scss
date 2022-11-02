@@ -4,6 +4,19 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-// .wp-block-create-block-related-post-slider-block {
-// 	border: 1px dotted #f00;
-// }
+/* Change Slick slider arrows color */
+.slick-prev,
+.slick-next {
+	color: transparent;
+	border: transparent;
+	outline: transparent;
+	background: transparent;
+	&:hover,
+	&:focus {
+		color: transparent;
+		background: transparent;
+	}
+	&::before {
+		color: black;
+	}
+}

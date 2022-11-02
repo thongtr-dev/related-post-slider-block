@@ -323,4 +323,4 @@
     color: black;
 }
 
-
+.slick-next,.slick-prev{border:transparent;outline:transparent}.slick-next,.slick-next:focus,.slick-next:hover,.slick-prev,.slick-prev:focus,.slick-prev:hover{background:transparent;color:transparent}.slick-next:before,.slick-prev:before{color:#000}

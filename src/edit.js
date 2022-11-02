@@ -11,7 +11,11 @@ import { __ } from "@wordpress/i18n";
  *
  * @see https://developer.wordpress.org/block-editor/packages/packages-block-editor/#useBlockProps
  */
-import { useBlockProps } from "@wordpress/block-editor";
+import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
+
+import { PanelBody, ToggleControl } from "@wordpress/components";
+
+import { useState } from "@wordpress/element";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -33,9 +37,89 @@ import Block from "./block";
  */
 export default function Edit({ attributes, setAttributes }) {
 	const blockProps = useBlockProps();
+	const { display } = attributes;
+	const {
+		displayFeaturedImage,
+		displayCategory,
+		displayMeta,
+		displayExcerpt,
+		displayReverseOrder,
+	} = display;
+	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<div {...blockProps}>
+			<InspectorControls>
+				<PanelBody
+					title={__("Display", "related-post-slider-block")}
+					opened={isOpen}
+					onToggle={() => {
+						setIsOpen(!isOpen);
+					}}
+				>
+					<ToggleControl
+						label={__("Display category", "related-post-slider-block")}
+						onChange={() => {
+							setAttributes({
+								display: { ...display, displayCategory: !displayCategory },
+							});
+						}}
+						checked={displayCategory}
+					/>
+
+					<ToggleControl
+						label={__("Display featured image", "related-post-slider-block")}
+						onChange={() => {
+							setAttributes({
+								display: {
+									...display,
+									displayFeaturedImage: !displayFeaturedImage,
+								},
+							});
+						}}
+						checked={displayFeaturedImage}
+					/>
+
+					<ToggleControl
+						label={__("Display meta info", "related-post-slider-block")}
+						onChange={() => {
+							setAttributes({
+								display: {
+									...display,
+									displayMeta: !displayMeta,
+								},
+							});
+						}}
+						checked={displayMeta}
+					/>
+
+					<ToggleControl
+						label={__("Display excerpt", "related-post-slider-block")}
+						onChange={() => {
+							setAttributes({
+								display: {
+									...display,
+									displayExcerpt: !displayExcerpt,
+								},
+							});
+						}}
+						checked={displayExcerpt}
+					/>
+					<ToggleControl
+						label={__("Reverse order", "related-post-slider-block")}
+						onChange={() => {
+							setAttributes({
+								display: {
+									...display,
+									displayReverseOrder: !displayReverseOrder,
+								},
+							});
+						}}
+						checked={displayReverseOrder}
+					/>
+				</PanelBody>
+			</InspectorControls>
+
 			<Block {...attributes} />
 		</div>
 	);

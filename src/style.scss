@@ -28,3 +28,20 @@
 		}
 	}
 }
+
+/* Change Slick slider arrows color */
+.slick-prev,
+.slick-next {
+	color: transparent;
+	border: transparent;
+	outline: transparent;
+	background: transparent;
+	&:hover,
+	&:focus {
+		color: transparent;
+		background: transparent;
+	}
+	&::before {
+		color: black;
+	}
+}

@@ -5,8 +5,12 @@ import useFetch from "./components/useFetch";
 import RelatedPostSlider from "./components/RelatedPostSlider";
 
 export default function Block(attributes) {
-	const { totalPostsToShow } = attributes;
-	const { isLoading, isError, posts } = useFetch([totalPostsToShow]);
+	const { totalPostsToShow, display } = attributes;
+	const { displayReverseOrder } = display;
+	const { isLoading, isError, posts, currentPostCatId } = useFetch([
+		totalPostsToShow,
+		displayReverseOrder,
+	]);
 
 	const sliderSettings = {
 		dots: true,
@@ -21,6 +25,13 @@ export default function Block(attributes) {
 	) : isLoading ? (
 		<p>Loading...</p>
 	) : (
-		<RelatedPostSlider sliderSettings={sliderSettings} posts={posts} />
+		<div>
+			<RelatedPostSlider
+				display={display}
+				sliderSettings={sliderSettings}
+				posts={posts}
+				currentPostCatId={currentPostCatId}
+			/>
+		</div>
 	);
 }
