@@ -1,47 +1,44 @@
 {
-  "$schema": "https://schemas.wp.org/trunk/block.json",
-  "apiVersion": 2,
-  "name": "create-block/related-post-slider-block",
-  "version": "1.0.0",
-  "title": "Related Post Slider Block",
-  "category": "widgets",
-  "icon": "list-view",
-  "description": "Add related post slider block.",
-  "supports": {
-    "html": false,
-    "align": [
-      "full",
-      "wide"
-    ]
-  },
-  "attributes": {
-    "display": {
-      "type": "object",
-      "default": {
-        "displayFeaturedImage": true,
-        "displayCategory": true,
-        "displayMeta": true,
-        "displayExcerpt": true,
-        "displayDotsIndicator": true,
-        "displayArrowsIndicator": true,
-        "displayReverseOrder": false
-      }
-    },
-    "excerptLength": {
-      "type": "number",
-      "default": 125
-    },
-    "totalPostsToShow": {
-      "type": "number",
-      "default": 9
-    },
-    "postsPerSlide": {
-      "type": "number",
-      "default": 3
-    }
-  },
-  "textdomain": "related-post-slider-block",
-  "editorScript": "file:./index.js",
-  "editorStyle": "file:./index.css",
-  "style": "file:./style-index.css"
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "create-block/related-post-slider-block",
+	"version": "1.0.0",
+	"title": "Related Post Slider Block",
+	"category": "widgets",
+	"icon": "list-view",
+	"description": "Add related post slider block.",
+	"supports": {
+		"html": false,
+		"align": ["full", "wide"]
+	},
+	"attributes": {
+		"display":{
+			"type":"object",
+			"default": {
+				"displayFeaturedImage": true,
+				"displayCategory": true,
+				"displayMeta": true,
+				"displayExcerpt": true,
+				"displayDotsIndicator": true,
+				"displayArrowsIndicator": true,
+				"displayReverseOrder": false
+			}
+		},
+		"excerptLength": {
+			"type":"number",
+			"default": 125
+		},
+		"totalPostsToShow": {
+			"type": "number",
+			"default": 9
+		},
+		"postsPerSlide": {
+			"type": "number",
+			"default": 3
+		}
+	},
+	"textdomain": "related-post-slider-block",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./index.css"
 }

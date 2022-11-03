@@ -29,6 +29,18 @@ function create_block_related_post_slider_block_block_init()
 	));
 }
 
+function related_post_slider_block_enqueue_frontend_script()
+{
+	$script_path       = 'build/frontend.js';
+	$script_asset_path = 'build/frontend.asset.php';
+	$script_asset      = require($script_asset_path);
+	$script_url = plugins_url($script_path, __FILE__);
+	if (!is_admin()) {
+		wp_enqueue_script('jquery-slick-frontend-script', $script_url, $script_asset['dependencies'], $script_asset['version'], true);
+	}
+}
+add_action('enqueue_block_assets', 'related_post_slider_block_enqueue_frontend_script');
+
 function related_post_slider_block_render_callback($block_attributes, $content)
 {
 	[
@@ -54,14 +66,16 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 		)
 	);
 
-	$output = '<div class="wp-block-create-block-related-post-slider-block">';
+	$wrapper_attributes = get_block_wrapper_attributes();
+
+	$output = '<div ' . $wrapper_attributes . '>';
 
 	if ($related_posts->have_posts()) {
 		foreach ($related_posts->posts as $post) {
 			$post_id = $post->ID;
 			$featured_image = $display_featured_image ? '<a href="' . esc_url(get_permalink($post_id)) . '"> ' .
-				wp_get_attachment_image(get_post_thumbnail_id($post_id), 'medium', false, array(
-					'class' => 'attachment-medium size-medium featured'
+				wp_get_attachment_image(get_post_thumbnail_id($post_id), 'large', false, array(
+					'class' => 'attachment-large size-large featured'
 				)) . '</a>' : '';
 
 			$category = $display_category ? '<div class="term">
@@ -86,6 +100,11 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 		}
 	}
 	$output .= '</div>';
+
+	// if (!is_admin()) {
+	// 	related_post_slider_block_enqueue_frontend_script();
+	// }
+
 	return $output;
 }
 

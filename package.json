@@ -15,7 +15,7 @@
 		"start": "wp-scripts start"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^24.4.0",
+		"@wordpress/scripts": "^21.0.2",
 		"react-slick": "^0.29.0",
 		"slick-carousel": "^1.8.1"
 	},
