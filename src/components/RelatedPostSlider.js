@@ -11,6 +11,7 @@ export default function RelatedPostSlider({
 		display;
 	return (
 		<Slider {...sliderSettings}>
+			{!posts && <p>Loading...</p>}
 			{posts && posts.length === 0 && <p>No posts</p>}
 			{posts &&
 				posts.length > 0 &&

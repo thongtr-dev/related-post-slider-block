@@ -18,8 +18,5 @@
 		"@wordpress/scripts": "^21.0.2",
 		"react-slick": "^0.29.0",
 		"slick-carousel": "^1.8.1"
-	},
-	"dependencies": {
-		"axios": "^1.1.3"
 	}
 }

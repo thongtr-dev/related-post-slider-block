@@ -7,7 +7,7 @@ import RelatedPostSlider from "./components/RelatedPostSlider";
 export default function Block(attributes) {
 	const { totalPostsToShow, display } = attributes;
 	const { displayReverseOrder } = display;
-	const { isLoading, isError, posts, currentPostCatId } = useFetch([
+	const { posts, currentPostCatId } = useFetch([
 		totalPostsToShow,
 		displayReverseOrder,
 	]);
@@ -20,18 +20,12 @@ export default function Block(attributes) {
 		slidesToScroll: 3,
 	};
 
-	return isError ? (
-		<p>Something went wrong...</p>
-	) : isLoading ? (
-		<p>Loading...</p>
-	) : (
-		<div>
-			<RelatedPostSlider
-				display={display}
-				sliderSettings={sliderSettings}
-				posts={posts}
-				currentPostCatId={currentPostCatId}
-			/>
-		</div>
+	return (
+		<RelatedPostSlider
+			display={display}
+			sliderSettings={sliderSettings}
+			posts={posts}
+			currentPostCatId={currentPostCatId}
+		/>
 	);
 }

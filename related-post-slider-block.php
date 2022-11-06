@@ -101,10 +101,6 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 	}
 	$output .= '</div>';
 
-	// if (!is_admin()) {
-	// 	related_post_slider_block_enqueue_frontend_script();
-	// }
-
 	return $output;
 }
 
