@@ -13,9 +13,14 @@ import { __ } from "@wordpress/i18n";
  */
 import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
 
-import { PanelBody, ToggleControl } from "@wordpress/components";
+import {
+	PanelBody,
+	ToggleControl,
+	SelectControl,
+	__experimentalInputControl as InputControl,
+} from "@wordpress/components";
 
-import { useState } from "@wordpress/element";
+import { useEffect } from "@wordpress/element";
 
 /**
  * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
@@ -37,7 +42,7 @@ import Block from "./block";
  */
 export default function Edit({ attributes, setAttributes }) {
 	const blockProps = useBlockProps();
-	const { display } = attributes;
+	const { display, postsPerSlide, totalPostsToShow } = attributes;
 	const {
 		displayFeaturedImage,
 		displayCategory,
@@ -45,18 +50,17 @@ export default function Edit({ attributes, setAttributes }) {
 		displayExcerpt,
 		displayReverseOrder,
 	} = display;
-	const [isOpen, setIsOpen] = useState(false);
+
+	useEffect(() => {
+		if (totalPostsToShow < postsPerSlide) {
+			setAttributes({ postsPerSlide: parseInt(totalPostsToShow) });
+		}
+	}, [postsPerSlide, totalPostsToShow]);
 
 	return (
 		<div {...blockProps}>
 			<InspectorControls>
-				<PanelBody
-					title={__("Display", "related-post-slider-block")}
-					opened={isOpen}
-					onToggle={() => {
-						setIsOpen(!isOpen);
-					}}
-				>
+				<PanelBody title={__("Display", "related-post-slider-block")}>
 					<ToggleControl
 						label={__("Display category", "related-post-slider-block")}
 						onChange={() => {
@@ -117,7 +121,47 @@ export default function Edit({ attributes, setAttributes }) {
 						}}
 						checked={displayReverseOrder}
 					/>
+					<InputControl
+						label={__("Total posts", "related-post-slider-block")}
+						labelPosition={"side"}
+						isPressEnterToChange={true}
+						value={totalPostsToShow}
+						onChange={(newValue) => {
+							setAttributes({ totalPostsToShow: newValue });
+						}}
+					/>
+					<SelectControl
+						label={__("Posts per slide", "related-post-slider-block")}
+						labelPosition={"side"}
+						value={postsPerSlide}
+						options={[
+							{
+								label: __("1", "related-post-slider-block"),
+								value: 1,
+							},
+							{
+								label: __("2", "related-post-slider-block"),
+								value: 2,
+							},
+							{
+								label: __("3", "related-post-slider-block"),
+								value: 3,
+							},
+							{
+								label: __("4", "related-post-slider-block"),
+								value: 4,
+							},
+						]}
+						onChange={(newValue) => {
+							setAttributes({ postsPerSlide: parseInt(newValue) });
+						}}
+						__nextHasNorMarginBottom
+					/>
 				</PanelBody>
+
+				<PanelBody
+					title={__("Responsive", "related-post-slider-block")}
+				></PanelBody>
 			</InspectorControls>
 
 			<Block {...attributes} />
