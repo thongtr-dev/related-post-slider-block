@@ -29,20 +29,34 @@ function create_block_related_post_slider_block_block_init()
 	));
 }
 
-function related_post_slider_block_enqueue_frontend_script()
+function related_post_slider_block_enqueue_frontend_script($block_attributes)
 {
 	$script_path       = 'build/frontend.js';
 	$script_asset_path = 'build/frontend.asset.php';
 	$script_asset      = require($script_asset_path);
 	$script_url = plugins_url($script_path, __FILE__);
-	if (!is_admin()) {
-		wp_enqueue_script('jquery-slick-frontend-script', $script_url, $script_asset['dependencies'], $script_asset['version'], true);
-	}
+
+	[
+		'totalPostsToShow' => $total_posts_to_show,
+		'postsPerSlide' => $posts_per_slide,
+	] = $block_attributes;
+
+	$slider_settings = [
+		// 'totalPostsToShow' => $total_posts_to_show,
+		'postsPerSlide' => $posts_per_slide,
+	];
+
+	wp_enqueue_script('jquery-slick', $script_url, $script_asset['dependencies'], $script_asset['version'], true);
+	wp_add_inline_script('jquery-slick', 'const sliderSettings = ' . json_encode($slider_settings), 'before');
 }
-add_action('enqueue_block_assets', 'related_post_slider_block_enqueue_frontend_script');
 
 function related_post_slider_block_render_callback($block_attributes, $content)
 {
+
+	if (!is_admin()) {
+		related_post_slider_block_enqueue_frontend_script($block_attributes);
+	}
+
 	[
 		'totalPostsToShow' => $total_posts_to_show,
 		'display' => $display,
