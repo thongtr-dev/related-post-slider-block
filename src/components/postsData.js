@@ -1,5 +1,5 @@
-export default function postsData(posts, currentPostCatId) {
-	const postsData = posts.map((post) => ({
+export default function postsData(posts) {
+	return posts.map((post) => ({
 		postID: post.id,
 		featuredImageSrc:
 			post._embedded["wp:featuredmedia"][0].media_details.sizes.medium
@@ -15,8 +15,4 @@ export default function postsData(posts, currentPostCatId) {
 		authorLink: post._embedded.author["0"].link,
 		publishedDate: post.date,
 	}));
-
-	return postsData.filter(
-		(post) => post.categoryId === currentPostCatId.current
-	);
 }

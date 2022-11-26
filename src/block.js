@@ -5,9 +5,9 @@ import useFetch from "./components/useFetch";
 import RelatedPostSlider from "./components/RelatedPostSlider";
 
 export default function Block(attributes) {
-	const { totalPostsToShow, display } = attributes;
+	const { totalPostsToShow, postsPerSlide, display } = attributes;
 	const { displayReverseOrder } = display;
-	const { posts, currentPostCatId } = useFetch([
+	const { posts, hasResolvedPosts } = useFetch([
 		totalPostsToShow,
 		displayReverseOrder,
 	]);
@@ -16,8 +16,9 @@ export default function Block(attributes) {
 		dots: true,
 		infinite: true,
 		speed: 500,
-		slidesToShow: 3,
-		slidesToScroll: 3,
+		slidesToShow: postsPerSlide,
+		slidesToScroll: 1,
+		rows: 1,
 	};
 
 	return (
@@ -25,7 +26,7 @@ export default function Block(attributes) {
 			display={display}
 			sliderSettings={sliderSettings}
 			posts={posts}
-			currentPostCatId={currentPostCatId}
+			hasResolvedPosts={hasResolvedPosts}
 		/>
 	);
 }
