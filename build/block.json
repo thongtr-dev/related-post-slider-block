@@ -29,11 +29,11 @@
 			"default": 125
 		},
 		"totalPostsToShow": {
-			"type": "number",
+			"type": "integer",
 			"default": 9
 		},
 		"postsPerSlide": {
-			"type": "number",
+			"type": "integer",
 			"default": 3
 		}
 	},
