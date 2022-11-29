@@ -15,10 +15,13 @@ import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
 
 import {
 	PanelBody,
+	PanelRow,
 	ToggleControl,
 	SelectControl,
-	__experimentalInputControl as InputControl,
+	TextControl,
 } from "@wordpress/components";
+
+import { Icon, desktop, tablet, mobile } from "@wordpress/icons";
 
 import { useEffect } from "@wordpress/element";
 
@@ -42,7 +45,7 @@ import Block from "./block";
  */
 export default function Edit({ attributes, setAttributes }) {
 	const blockProps = useBlockProps();
-	const { display, postsPerSlide, totalPostsToShow } = attributes;
+	const { display, postsPerSlide, totalPostsToShow, breakpoints } = attributes;
 	const {
 		displayFeaturedImage,
 		displayCategory,
@@ -56,6 +59,88 @@ export default function Edit({ attributes, setAttributes }) {
 			setAttributes({ postsPerSlide: parseInt(totalPostsToShow) });
 		}
 	}, [postsPerSlide, totalPostsToShow]);
+
+	const desktopBreakpointSettings = breakpoints.filter(
+		(breakpoint) => breakpoint.device === "desktop"
+	)[0].breakpointSettings;
+
+	const { breakpoint: desktopBreakPoint, settings: desktopResponsiveSettings } =
+		desktopBreakpointSettings;
+
+	const tabletBreakpointSettings = breakpoints.filter(
+		(breakpoint) => breakpoint.device === "tablet"
+	)[0].breakpointSettings;
+
+	const { breakpoint: tabletBreakPoint, settings: tabletResponsiveSettings } =
+		tabletBreakpointSettings;
+
+	const mobileBreakpointSettings = breakpoints.filter(
+		(breakpoint) => breakpoint.device === "mobile"
+	)[0].breakpointSettings;
+
+	const { breakpoint: mobileBreakPoint, settings: mobileResponsiveSettings } =
+		mobileBreakpointSettings;
+
+	const slidesToShowSelectOpts = [
+		{
+			label: __("1", "related-post-slider-block"),
+			value: 1,
+		},
+		{
+			label: __("2", "related-post-slider-block"),
+			value: 2,
+		},
+		{
+			label: __("3", "related-post-slider-block"),
+			value: 3,
+		},
+		{
+			label: __("4", "related-post-slider-block"),
+			value: 4,
+		},
+	];
+
+	const setBreakpointOrSlidesToShowAttr = (
+		device,
+		breakpointSettings = {},
+		responsiveSettings = {},
+		property,
+		value
+	) => {
+		switch (property) {
+			case "breakpoint":
+				return setAttributes({
+					breakpoints: [
+						...breakpoints.filter((breakpoint) => breakpoint.device !== device),
+						{
+							device: device,
+							breakpointSettings: {
+								...breakpointSettings,
+								breakpoint: parseInt(value),
+							},
+						},
+					],
+				});
+			case "slidesToShow":
+				return setAttributes({
+					breakpoints: [
+						...breakpoints.filter((breakpoint) => breakpoint.device !== device),
+						{
+							device: device,
+							breakpointSettings: {
+								...breakpointSettings,
+								settings: {
+									...responsiveSettings,
+									slidesToShow: parseInt(value),
+								},
+							},
+						},
+					],
+				});
+			default:
+				return setAttributes({ breakpoints: [...breakpoints] });
+		}
+	};
 
 	return (
 		<div {...blockProps}>
@@ -121,37 +206,18 @@ export default function Edit({ attributes, setAttributes }) {
 						}}
 						checked={displayReverseOrder}
 					/>
-					<InputControl
+					<TextControl
 						label={__("Total posts", "related-post-slider-block")}
-						labelPosition={"side"}
-						isPressEnterToChange={true}
 						value={totalPostsToShow}
 						onChange={(newValue) => {
-							setAttributes({ totalPostsToShow: newValue });
+							setAttributes({ totalPostsToShow: parseInt(newValue) });
 						}}
 					/>
 					<SelectControl
 						label={__("Posts per slide", "related-post-slider-block")}
 						labelPosition={"side"}
 						value={postsPerSlide}
-						options={[
-							{
-								label: __("1", "related-post-slider-block"),
-								value: 1,
-							},
-							{
-								label: __("2", "related-post-slider-block"),
-								value: 2,
-							},
-							{
-								label: __("3", "related-post-slider-block"),
-								value: 3,
-							},
-							{
-								label: __("4", "related-post-slider-block"),
-								value: 4,
-							},
-						]}
+						options={slidesToShowSelectOpts}
 						onChange={(newValue) => {
 							setAttributes({ postsPerSlide: parseInt(newValue) });
 						}}
@@ -159,9 +225,118 @@ export default function Edit({ attributes, setAttributes }) {
 					/>
 				</PanelBody>
 
-				<PanelBody
-					title={__("Responsive", "related-post-slider-block")}
-				></PanelBody>
+				<PanelBody title={__("Responsive", "related-post-slider-block")}>
+					<PanelRow className="responsive-breakpoint">
+						<Icon icon={desktop} />
+						<span style={{ marginLeft: "5px" }}>
+							{__("Desktop", "related-post-slider-block")}
+						</span>
+					</PanelRow>
+					<TextControl
+						className="responsive-breakpoint__input"
+						label={__("Breakpoint", "related-post-slider-block")}
+						value={desktopBreakPoint}
+						onChange={(newValue) => {
+							setBreakpointOrSlidesToShowAttr(
+								"desktop",
+								desktopBreakpointSettings,
+								undefined,
+								"breakpoint",
+								newValue
+							);
+						}}
+					/>
+					<SelectControl
+						label={__("Posts per slide", "related-post-slider-block")}
+						labelPosition={"side"}
+						value={postsPerSlide}
+						options={slidesToShowSelectOpts}
+						onChange={(newValue) => {
+							setBreakpointOrSlidesToShowAttr(
+								"desktop",
+								desktopBreakpointSettings,
+								desktopResponsiveSettings,
+								"slidesToShow",
+								newValue
+							);
+
+							setAttributes({ postsPerSlide: parseInt(newValue) });
+						}}
+						__nextHasNorMarginBottom
+					/>
+					<PanelRow className="responsive-breakpoint">
+						<Icon icon={tablet} />
+						<span style={{ marginLeft: "5px" }}>
+							{__("Tablet", "related-post-slider-block")}
+						</span>
+					</PanelRow>
+					<TextControl
+						className="responsive-breakpoint__input"
+						label={__("Breakpoint", "related-post-slider-block")}
+						value={tabletBreakPoint}
+						onChange={(newValue) => {
+							setBreakpointOrSlidesToShowAttr(
+								"tablet",
+								tabletBreakpointSettings,
+								undefined,
+								"breakpoint",
+								newValue
+							);
+						}}
+					/>
+					<SelectControl
+						label={__("Posts per slide", "related-post-slider-block")}
+						labelPosition={"side"}
+						value={tabletResponsiveSettings.slidesToShow}
+						options={slidesToShowSelectOpts}
+						onChange={(newValue) => {
+							setBreakpointOrSlidesToShowAttr(
+								"tablet",
+								tabletBreakpointSettings,
+								tabletResponsiveSettings,
+								"slidesToShow",
+								newValue
+							);
+						}}
+						__nextHasNorMarginBottom
+					/>
+					<PanelRow className="responsive-breakpoint">
+						<Icon icon={mobile} />
+						<span style={{ marginLeft: "5px" }}>
+							{__("Mobile", "related-post-slider-block")}
+						</span>
+					</PanelRow>
+					<TextControl
+						className="responsive-breakpoint__input"
+						label={__("Breakpoint", "related-post-slider-block")}
+						value={mobileBreakPoint}
+						onChange={(newValue) => {
+							setBreakpointOrSlidesToShowAttr(
+								"mobile",
+								mobileBreakpointSettings,
+								undefined,
+								"breakpoint",
+								newValue
+							);
+						}}
+					/>
+					<SelectControl
+						label={__("Posts per slide", "related-post-slider-block")}
+						labelPosition={"side"}
+						value={mobileResponsiveSettings.slidesToShow}
+						options={slidesToShowSelectOpts}
+						onChange={(newValue) => {
+							setBreakpointOrSlidesToShowAttr(
+								"mobile",
+								mobileBreakpointSettings,
+								mobileResponsiveSettings,
+								"slidesToShow",
+								newValue
+							);
+						}}
+						__nextHasNorMarginBottom
+					/>
+				</PanelBody>
 			</InspectorControls>
 
 			<Block {...attributes} />

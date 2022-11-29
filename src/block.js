@@ -5,7 +5,7 @@ import useFetch from "./components/useFetch";
 import RelatedPostSlider from "./components/RelatedPostSlider";
 
 export default function Block(attributes) {
-	const { totalPostsToShow, postsPerSlide, display } = attributes;
+	const { display, postsPerSlide, totalPostsToShow, breakpoints } = attributes;
 	const { displayReverseOrder } = display;
 	const { posts, hasResolvedPosts } = useFetch([
 		totalPostsToShow,
@@ -19,6 +19,7 @@ export default function Block(attributes) {
 		slidesToShow: postsPerSlide,
 		slidesToScroll: 1,
 		rows: 1,
+		responsive: breakpoints.map((breakpoint) => breakpoint.breakpointSettings),
 	};
 
 	return (

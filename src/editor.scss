@@ -53,3 +53,8 @@
 		color: black;
 	}
 }
+
+/* Responsive controls panel row */
+.components-panel__row.responsive-breakpoint {
+	justify-content: flex-start;
+}

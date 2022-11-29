@@ -37,13 +37,19 @@ function related_post_slider_block_enqueue_frontend_script($block_attributes)
 	$script_url = plugins_url($script_path, __FILE__);
 
 	[
-		'totalPostsToShow' => $total_posts_to_show,
 		'postsPerSlide' => $posts_per_slide,
+		'breakpoints' => $breakpoints,
 	] = $block_attributes;
 
+	function return_responsive_settings($breakpoint)
+	{
+		['breakpointSettings' => $breakpoint_settings] = $breakpoint;
+		return $breakpoint_settings;
+	}
+
 	$slider_settings = [
-		// 'totalPostsToShow' => $total_posts_to_show,
 		'postsPerSlide' => $posts_per_slide,
+		'responsive' => array_map('return_responsive_settings', $breakpoints)
 	];
 
 	wp_enqueue_script('jquery-slick', $script_url, $script_asset['dependencies'], $script_asset['version'], true);

@@ -18,5 +18,8 @@
 		"@wordpress/scripts": "^21.0.2",
 		"react-slick": "^0.29.0",
 		"slick-carousel": "^1.8.1"
+	},
+	"dependencies": {
+		"@wordpress/icons": "^9.13.0"
 	}
 }
