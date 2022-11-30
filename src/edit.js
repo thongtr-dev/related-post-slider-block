@@ -116,7 +116,7 @@ export default function Edit({ attributes, setAttributes }) {
 							device: device,
 							breakpointSettings: {
 								...breakpointSettings,
-								breakpoint: parseInt(value),
+								breakpoint: value ? parseInt(value) : 0,
 							},
 						},
 					],
