@@ -55,7 +55,7 @@ export default function Edit({ attributes, setAttributes }) {
 	} = display;
 
 	useEffect(() => {
-		if (totalPostsToShow < postsPerSlide) {
+		if (totalPostsToShow > 0 && totalPostsToShow < postsPerSlide) {
 			setAttributes({ postsPerSlide: parseInt(totalPostsToShow) });
 		}
 	}, [postsPerSlide, totalPostsToShow]);
@@ -210,7 +210,9 @@ export default function Edit({ attributes, setAttributes }) {
 						label={__("Total posts", "related-post-slider-block")}
 						value={totalPostsToShow}
 						onChange={(newValue) => {
-							setAttributes({ totalPostsToShow: parseInt(newValue) });
+							setAttributes({
+								totalPostsToShow: newValue ? parseInt(newValue) : 0,
+							});
 						}}
 					/>
 					<SelectControl
