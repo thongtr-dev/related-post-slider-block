@@ -19,6 +19,8 @@ import {
 	ToggleControl,
 	SelectControl,
 	TextControl,
+	__experimentalBorderBoxControl as BorderBoxControl,
+	__experimentalBoxControl as BoxControl,
 } from "@wordpress/components";
 
 import { Icon, desktop, tablet, mobile } from "@wordpress/icons";
@@ -45,7 +47,16 @@ import Block from "./block";
  */
 export default function Edit({ attributes, setAttributes }) {
 	const blockProps = useBlockProps();
-	const { display, postsPerSlide, totalPostsToShow, breakpoints } = attributes;
+	const {
+		display,
+		postsPerSlide,
+		totalPostsToShow,
+		breakpoints,
+		carouselPadding,
+		carouselMargin,
+		itemPadding,
+		itemMargin,
+	} = attributes;
 	const {
 		displayFeaturedImage,
 		displayCategory,
@@ -143,7 +154,14 @@ export default function Edit({ attributes, setAttributes }) {
 	};
 
 	return (
-		<div {...blockProps}>
+		<div
+			{...blockProps}
+			style={{
+				...blockProps.style,
+				padding: `${carouselPadding.top} ${carouselPadding.right} ${carouselPadding.bottom} ${carouselPadding.left}`,
+				margin: `${carouselMargin.top} auto ${carouselMargin.bottom}`,
+			}}
+		>
 			<InspectorControls>
 				<PanelBody title={__("Display", "related-post-slider-block")}>
 					<ToggleControl
@@ -337,6 +355,38 @@ export default function Edit({ attributes, setAttributes }) {
 							);
 						}}
 						__nextHasNorMarginBottom
+					/>
+				</PanelBody>
+
+				<PanelBody title={__("Dimensions", "related-post-slider-block")}>
+					<BoxControl
+						label={__("Carousel padding", "related-post-slider-block")}
+						values={carouselPadding}
+						onChange={(newValues) => {
+							setAttributes({ carouselPadding: newValues });
+						}}
+					/>
+					<BoxControl
+						label={__("Carousel margin", "related-post-slider-block")}
+						sides={["top", "bottom"]}
+						values={carouselMargin}
+						onChange={(newValues) => {
+							setAttributes({ carouselMargin: newValues });
+						}}
+					/>
+					<BoxControl
+						label={__("Slide item padding", "related-post-slider-block")}
+						values={itemPadding}
+						onChange={(newValues) => {
+							setAttributes({ itemPadding: newValues });
+						}}
+					/>
+					<BoxControl
+						label={__("Slide item margin", "related-post-slider-block")}
+						values={itemMargin}
+						onChange={(newValues) => {
+							setAttributes({ itemMargin: newValues });
+						}}
 					/>
 				</PanelBody>
 			</InspectorControls>

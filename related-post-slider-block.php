@@ -66,6 +66,10 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 	[
 		'totalPostsToShow' => $total_posts_to_show,
 		'display' => $display,
+		'carouselPadding' => $carousel_padding,
+		'carouselMargin' => $carousel_margin,
+		'itemPadding' => $item_padding,
+		'itemMargin' => $item_margin,
 	] = $block_attributes;
 
 	[
@@ -75,6 +79,33 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 		'displayExcerpt' => $display_excerpt,
 		'displayReverseOrder' => $reverse_order
 	] = $display;
+
+	[
+		'top' => $carousel_padding_top,
+		'right' => $carousel_padding_right,
+		'bottom' => $carousel_padding_bottom,
+		'left' => $carousel_padding_left,
+	] = $carousel_padding;
+
+	[
+		'top' => $carousel_margin_top,
+		'bottom' => $carousel_margin_bottom,
+	] = $carousel_margin;
+
+	[
+		'top' => $item_padding_top,
+		'right' => $item_padding_right,
+		'bottom' => $item_padding_bottom,
+		'left' => $item_padding_left,
+	] = $item_padding;
+
+	[
+		'top' => $item_margin_top,
+		'right' => $item_margin_right,
+		'bottom' => $item_margin_bottom,
+		'left' => $item_margin_left,
+	] = $item_margin;
+
 
 	$related_posts = new WP_Query(
 		array(
@@ -88,7 +119,7 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 
 	$wrapper_attributes = get_block_wrapper_attributes();
 
-	$output = '<div ' . $wrapper_attributes . '>';
+	$output = '<div style="padding:' . $carousel_padding_top . ' ' . $carousel_padding_right . ' ' . $carousel_padding_bottom . ' ' . $carousel_padding_left . '; margin:' . $carousel_margin_top . ' auto ' . $carousel_margin_bottom . ' " ' . $wrapper_attributes . '>';
 
 	if ($related_posts->have_posts()) {
 		foreach ($related_posts->posts as $post) {
@@ -114,8 +145,10 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 
 			$excerpt = $display_excerpt ? '<div class="excerpt"><p>' . esc_html(substr(get_the_excerpt($post_id), 0, $block_attributes['excerptLength'])) . '...</p></div>' : '';
 
-			$output .= '<div key="' . esc_html($post_id) . '" class="related-post-slider-item"> ' . $featured_image . $category . '
-			<h3 class="title"><a href="' . esc_url(get_permalink($post_id)) . '">' . esc_html(get_the_title($post_id)) . '</a></h3> ' . $meta . $excerpt . '
+			$output .= '<div key="' . esc_html($post_id) . '" class="related-post-slider-item">
+				<div class="related-post-slider-item-content-wrapper" style="padding:' . $item_padding_top . ' ' . $item_padding_right . ' ' . $item_padding_bottom . ' ' . $item_padding_left . '; margin:' . $item_margin_top . ' ' . $item_margin_right . ' ' . $item_margin_bottom . ' ' . $item_margin_left . '"> ' . $featured_image . $category . '
+					<h3 class="title"><a href="' . esc_url(get_permalink($post_id)) . '">' . esc_html(get_the_title($post_id)) . '</a></h3> ' . $meta . $excerpt . '
+				</div>
 			</div>';
 		}
 	}
