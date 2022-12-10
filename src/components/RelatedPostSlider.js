@@ -9,9 +9,53 @@ export default function RelatedPostSlider({
 	hasResolvedPosts,
 	itemPadding,
 	itemMargin,
+	linkSlideItemBorder,
+	flatSlideItemBorder,
+	splittedSlideItemBorder,
 }) {
 	const { displayFeaturedImage, displayCategory, displayMeta, displayExcerpt } =
 		display;
+
+	const {
+		top: slideItemBorderTop,
+		right: slideItemBorderRight,
+		bottom: slideItemBorderBottom,
+		left: slideItemBorderLeft,
+	} = splittedSlideItemBorder;
+
+	const slideItemBorderProperty = () => {
+		return linkSlideItemBorder
+			? {
+					border: flatSlideItemBorder
+						? `${flatSlideItemBorder.color || "transparent"} ${
+								flatSlideItemBorder.style || "none"
+						  } ${flatSlideItemBorder.width || "0"}`
+						: "transparent none 0",
+			  }
+			: {
+					borderTop: slideItemBorderTop
+						? `${slideItemBorderTop.color || "transparent"} ${
+								slideItemBorderTop.style || "none"
+						  } ${slideItemBorderTop.width || "0"}`
+						: "transparent none 0",
+					borderRight: slideItemBorderRight
+						? `${slideItemBorderRight.color || "transparent"} ${
+								slideItemBorderRight.style || "none"
+						  } ${slideItemBorderRight.width || "0"}`
+						: "transparent none 0",
+					borderBottom: slideItemBorderBottom
+						? `${slideItemBorderBottom.color || "transparent"} ${
+								slideItemBorderBottom.style || "none"
+						  } ${slideItemBorderBottom.width || "0"}`
+						: "transparent none 0",
+					borderLeft: slideItemBorderLeft
+						? `${slideItemBorderLeft.color || "transparent"} ${
+								slideItemBorderLeft.style || "none"
+						  } ${slideItemBorderLeft.width || "0"}`
+						: "transparent none 0",
+			  };
+	};
+
 	return (
 		<div>
 			{!hasResolvedPosts && <Spinner />}
@@ -38,6 +82,7 @@ export default function RelatedPostSlider({
 									style={{
 										padding: `${itemPadding.top} ${itemPadding.right} ${itemPadding.bottom} ${itemPadding.left}`,
 										margin: `${itemMargin.top} ${itemMargin.right} ${itemMargin.bottom} ${itemMargin.left}`,
+										...slideItemBorderProperty(),
 									}}
 								>
 									{displayFeaturedImage && featuredImageSrc && (

@@ -109,8 +109,44 @@
 				"bottom": "30px",
 				"left": "30px"
 			}
+		},
+		"linkSlideItemBorder": {
+			"type": "boolean",
+			"default": true
+		},
+		"flatSlideItemBorder": {
+			"type": "object",
+			"default": {
+				"color": "transparent",
+				"style": "none",
+				"width": "0"
+			}
+		},
+		"splittedSlideItemBorder": {
+			"type": "object",
+			"default": {
+				"top": {
+					"color": "transparent",
+					"style": "none",
+					"width": "0"
+				},
+				"right": {
+					"color": "transparent",
+					"style": "none",
+					"width": "0"
+				},
+				"bottom": {
+					"color": "transparent",
+					"style": "none",
+					"width": "0"
+				},
+				"left": {
+					"color": "transparent",
+					"style": "none",
+					"width": "0"
+				}
+			}
 		}
-		
 	},
 	"textdomain": "related-post-slider-block",
 	"editorScript": "file:./index.js",

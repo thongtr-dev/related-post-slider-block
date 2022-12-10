@@ -14,16 +14,17 @@ import { __ } from "@wordpress/i18n";
 import { useBlockProps, InspectorControls } from "@wordpress/block-editor";
 
 import {
+	Button,
 	PanelBody,
 	PanelRow,
 	ToggleControl,
 	SelectControl,
 	TextControl,
-	__experimentalBorderBoxControl as BorderBoxControl,
+	__experimentalBorderControl as BorderControl,
 	__experimentalBoxControl as BoxControl,
 } from "@wordpress/components";
 
-import { Icon, desktop, tablet, mobile } from "@wordpress/icons";
+import { Icon, desktop, tablet, mobile, link, linkOff } from "@wordpress/icons";
 
 import { useEffect } from "@wordpress/element";
 
@@ -47,6 +48,7 @@ import Block from "./block";
  */
 export default function Edit({ attributes, setAttributes }) {
 	const blockProps = useBlockProps();
+
 	const {
 		display,
 		postsPerSlide,
@@ -56,6 +58,9 @@ export default function Edit({ attributes, setAttributes }) {
 		carouselMargin,
 		itemPadding,
 		itemMargin,
+		linkSlideItemBorder,
+		flatSlideItemBorder,
+		splittedSlideItemBorder,
 	} = attributes;
 	const {
 		displayFeaturedImage,
@@ -388,6 +393,90 @@ export default function Edit({ attributes, setAttributes }) {
 							setAttributes({ itemMargin: newValues });
 						}}
 					/>
+				</PanelBody>
+
+				<PanelBody title={__("Styles", "related-post-slider-block")}>
+					<PanelRow>
+						{__("Slide item border", "related-post-slider-block")}
+						<Button
+							icon={linkSlideItemBorder ? link : linkOff}
+							label={__(
+								linkSlideItemBorder ? "Unlink borders" : "Link borders",
+								"related-post-slider-block"
+							)}
+							onClick={() => {
+								setAttributes({ linkSlideItemBorder: !linkSlideItemBorder });
+							}}
+						/>
+					</PanelRow>
+					{linkSlideItemBorder ? (
+						<BorderControl
+							label={__("Border", "related-post-slider-block")}
+							withSlider={true}
+							value={flatSlideItemBorder}
+							onChange={(newSlideItemBorder) => {
+								setAttributes({ flatSlideItemBorder: newSlideItemBorder });
+							}}
+						/>
+					) : (
+						<>
+							<BorderControl
+								label={__("Border top", "related-post-slider-block")}
+								withSlider={true}
+								value={splittedSlideItemBorder.top}
+								onChange={(newBorderTop) => {
+									setAttributes({
+										splittedSlideItemBorder: {
+											...splittedSlideItemBorder,
+											top: newBorderTop,
+										},
+									});
+								}}
+							/>
+							<BorderControl
+								style={{ marginTop: "10px" }}
+								label={__("Border right", "related-post-slider-block")}
+								withSlider={true}
+								value={splittedSlideItemBorder.right}
+								onChange={(newBorderRight) => {
+									setAttributes({
+										splittedSlideItemBorder: {
+											...splittedSlideItemBorder,
+											right: newBorderRight,
+										},
+									});
+								}}
+							/>
+							<BorderControl
+								style={{ marginTop: "10px" }}
+								label={__("Border bottom", "related-post-slider-block")}
+								withSlider={true}
+								value={splittedSlideItemBorder.bottom}
+								onChange={(newBorderBottom) => {
+									setAttributes({
+										splittedSlideItemBorder: {
+											...splittedSlideItemBorder,
+											bottom: newBorderBottom,
+										},
+									});
+								}}
+							/>
+							<BorderControl
+								style={{ marginTop: "10px" }}
+								label={__("Border left", "related-post-slider-block")}
+								withSlider={true}
+								value={splittedSlideItemBorder.left}
+								onChange={(newBorderLeft) => {
+									setAttributes({
+										splittedSlideItemBorder: {
+											...splittedSlideItemBorder,
+											left: newBorderLeft,
+										},
+									});
+								}}
+							/>
+						</>
+					)}
 				</PanelBody>
 			</InspectorControls>
 
