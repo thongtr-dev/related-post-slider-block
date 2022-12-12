@@ -28,31 +28,31 @@ export default function RelatedPostSlider({
 		return linkSlideItemBorder
 			? {
 					border: flatSlideItemBorder
-						? `${flatSlideItemBorder.color || "transparent"} ${
-								flatSlideItemBorder.style || "none"
-						  } ${flatSlideItemBorder.width || "0"}`
+						? `${flatSlideItemBorder.color ?? "transparent"} ${
+								flatSlideItemBorder.style ?? "none"
+						  } ${flatSlideItemBorder.width ?? "0"}`
 						: "transparent none 0",
 			  }
 			: {
 					borderTop: slideItemBorderTop
-						? `${slideItemBorderTop.color || "transparent"} ${
-								slideItemBorderTop.style || "none"
-						  } ${slideItemBorderTop.width || "0"}`
+						? `${slideItemBorderTop.color ?? "transparent"} ${
+								slideItemBorderTop.style ?? "none"
+						  } ${slideItemBorderTop.width ?? "0"}`
 						: "transparent none 0",
 					borderRight: slideItemBorderRight
-						? `${slideItemBorderRight.color || "transparent"} ${
-								slideItemBorderRight.style || "none"
-						  } ${slideItemBorderRight.width || "0"}`
+						? `${slideItemBorderRight.color ?? "transparent"} ${
+								slideItemBorderRight.style ?? "none"
+						  } ${slideItemBorderRight.width ?? "0"}`
 						: "transparent none 0",
 					borderBottom: slideItemBorderBottom
-						? `${slideItemBorderBottom.color || "transparent"} ${
-								slideItemBorderBottom.style || "none"
-						  } ${slideItemBorderBottom.width || "0"}`
+						? `${slideItemBorderBottom.color ?? "transparent"} ${
+								slideItemBorderBottom.style ?? "none"
+						  } ${slideItemBorderBottom.width ?? "0"}`
 						: "transparent none 0",
 					borderLeft: slideItemBorderLeft
-						? `${slideItemBorderLeft.color || "transparent"} ${
-								slideItemBorderLeft.style || "none"
-						  } ${slideItemBorderLeft.width || "0"}`
+						? `${slideItemBorderLeft.color ?? "transparent"} ${
+								slideItemBorderLeft.style ?? "none"
+						  } ${slideItemBorderLeft.width ?? "0"}`
 						: "transparent none 0",
 			  };
 	};
