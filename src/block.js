@@ -15,6 +15,7 @@ export default function Block(attributes) {
 		linkSlideItemBorder,
 		flatSlideItemBorder,
 		splittedSlideItemBorder,
+		slideItemBorderRadius,
 	} = attributes;
 	const { displayReverseOrder } = display;
 	const { posts, hasResolvedPosts } = useFetch([
@@ -43,6 +44,7 @@ export default function Block(attributes) {
 			linkSlideItemBorder={linkSlideItemBorder}
 			flatSlideItemBorder={flatSlideItemBorder}
 			splittedSlideItemBorder={splittedSlideItemBorder}
+			slideItemBorderRadius={slideItemBorderRadius}
 		/>
 	);
 }

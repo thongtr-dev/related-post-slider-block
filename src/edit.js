@@ -61,6 +61,7 @@ export default function Edit({ attributes, setAttributes }) {
 		linkSlideItemBorder,
 		flatSlideItemBorder,
 		splittedSlideItemBorder,
+		slideItemBorderRadius,
 	} = attributes;
 	const {
 		displayFeaturedImage,
@@ -477,6 +478,16 @@ export default function Edit({ attributes, setAttributes }) {
 							/>
 						</>
 					)}
+					<br />
+					<BoxControl
+						label={__("Border radius", "related-post-slider-block")}
+						values={slideItemBorderRadius}
+						onChange={(newValues) => {
+							setAttributes({
+								slideItemBorderRadius: newValues,
+							});
+						}}
+					/>
 				</PanelBody>
 			</InspectorControls>
 

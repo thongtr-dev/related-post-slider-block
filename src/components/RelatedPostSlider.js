@@ -12,6 +12,7 @@ export default function RelatedPostSlider({
 	linkSlideItemBorder,
 	flatSlideItemBorder,
 	splittedSlideItemBorder,
+	slideItemBorderRadius,
 }) {
 	const { displayFeaturedImage, displayCategory, displayMeta, displayExcerpt } =
 		display;
@@ -56,6 +57,14 @@ export default function RelatedPostSlider({
 			  };
 	};
 
+	const slideItemBorderRadiusProperty = () => ({
+		borderRadius: `${slideItemBorderRadius.top ?? "0"} ${
+			slideItemBorderRadius.right ?? "0"
+		} ${slideItemBorderRadius.bottom ?? "0"} ${
+			slideItemBorderRadius.left ?? "0"
+		}`,
+	});
+
 	return (
 		<div>
 			{!hasResolvedPosts && <Spinner />}
@@ -83,6 +92,7 @@ export default function RelatedPostSlider({
 										padding: `${itemPadding.top} ${itemPadding.right} ${itemPadding.bottom} ${itemPadding.left}`,
 										margin: `${itemMargin.top} ${itemMargin.right} ${itemMargin.bottom} ${itemMargin.left}`,
 										...slideItemBorderProperty(),
+										...slideItemBorderRadiusProperty(),
 									}}
 								>
 									{displayFeaturedImage && featuredImageSrc && (
