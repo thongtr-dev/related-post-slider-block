@@ -134,7 +134,7 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 
 	$wrapper_attributes = get_block_wrapper_attributes();
 
-	$output = '<div style="padding:' . $carousel_padding_top . ' ' . $carousel_padding_right . ' ' . $carousel_padding_bottom . ' ' . $carousel_padding_left . '; margin:' . $carousel_margin_top . ' auto ' . $carousel_margin_bottom . ' " ' . $wrapper_attributes . '>';
+	$output = '<div style="padding:' . (isset($carousel_padding_top) ? $carousel_padding_top  : '0') . ' ' . (isset($carousel_padding_right) ? $carousel_padding_right  : '0') . ' ' . (isset($carousel_padding_bottom) ? $carousel_padding_bottom  : '0') . ' ' . (isset($carousel_padding_left) ? $carousel_padding_left  : '0') . '; margin:' . (isset($carousel_margin_top) ? $carousel_margin_top  : '0') . ' auto ' . (isset($carousel_margin_bottom) ? $carousel_margin_bottom  : '0') . ' " ' . $wrapper_attributes . '>';
 
 	if ($related_posts->have_posts()) {
 		foreach ($related_posts->posts as $post) {
@@ -161,7 +161,7 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 			$excerpt = $display_excerpt ? '<div class="excerpt"><p>' . esc_html(substr(get_the_excerpt($post_id), 0, $block_attributes['excerptLength'])) . '...</p></div>' : '';
 
 			$output .= '<div key="' . esc_html($post_id) . '" class="related-post-slider-item">
-				<div class="related-post-slider-item-content-wrapper" style="padding:' . $item_padding_top . ' ' . $item_padding_right . ' ' . $item_padding_bottom . ' ' . $item_padding_left . ';margin:' . $item_margin_top . ' ' . $item_margin_right . ' ' . $item_margin_bottom . ' ' . $item_margin_left . ';' . $border_property . $border_radius_property . '">
+				<div class="related-post-slider-item-content-wrapper" style="padding:' . (isset($item_padding_top) ? $item_padding_top  : '0') . ' ' . (isset($item_padding_right) ? $item_padding_right  : '0') . ' ' . (isset($item_padding_bottom) ? $item_padding_bottom  : '0') . ' ' . (isset($item_padding_left) ? $item_padding_left  : '0') . ';margin:' . (isset($item_margin_top) ? $item_margin_top  : '0') . ' ' . (isset($item_margin_right) ? $item_margin_right  : '0') . ' ' . (isset($item_margin_bottom) ? $item_margin_bottom  : '0') . ' ' . (isset($item_margin_left) ? $item_margin_left  : '0') . ';' . $border_property . $border_radius_property . '">
 				' . $featured_image . $category . '
 					<h3 class="title"><a href="' . esc_url(get_permalink($post_id)) . '">' . esc_html(get_the_title($post_id)) . '</a></h3> ' . $meta . $excerpt . '
 				</div>

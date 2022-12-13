@@ -164,8 +164,12 @@ export default function Edit({ attributes, setAttributes }) {
 			{...blockProps}
 			style={{
 				...blockProps.style,
-				padding: `${carouselPadding.top} ${carouselPadding.right} ${carouselPadding.bottom} ${carouselPadding.left}`,
-				margin: `${carouselMargin.top} auto ${carouselMargin.bottom}`,
+				padding: `${carouselPadding.top ?? "0"} ${
+					carouselPadding.right ?? "0"
+				} ${carouselPadding.bottom ?? "0"} ${carouselPadding.left ?? "0"}`,
+				margin: `${carouselMargin.top ?? "0"} auto ${
+					carouselMargin.bottom ?? "0"
+				}`,
 			}}
 		>
 			<InspectorControls>

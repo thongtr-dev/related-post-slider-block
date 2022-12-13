@@ -89,8 +89,12 @@ export default function RelatedPostSlider({
 								<div
 									className="related-post-slider-item-content-wrapper"
 									style={{
-										padding: `${itemPadding.top} ${itemPadding.right} ${itemPadding.bottom} ${itemPadding.left}`,
-										margin: `${itemMargin.top} ${itemMargin.right} ${itemMargin.bottom} ${itemMargin.left}`,
+										padding: `${itemPadding.top ?? "0"} ${
+											itemPadding.right ?? "0"
+										} ${itemPadding.bottom ?? "0"} ${itemPadding.left ?? "0"}`,
+										margin: `${itemMargin.top ?? "0"} ${
+											itemMargin.right ?? "0"
+										} ${itemMargin.bottom ?? "0"} ${itemMargin.left ?? "0"}`,
 										...slideItemBorderProperty(),
 										...slideItemBorderRadiusProperty(),
 									}}
