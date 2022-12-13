@@ -155,6 +155,16 @@
 				"bottom": "0",
 				"left": "0"
 			}
+		},
+		"slideItemShadow": {
+			"type": "object",
+			"default": {
+				"offsetX": 0,
+				"offsetY": 24,
+				"blurRadius": 48,
+				"spreadRadius": 0,
+				"shadowColor": "rgba(193,203,220,0.4)"
+			}
 		}
 	},
 	"textdomain": "related-post-slider-block",

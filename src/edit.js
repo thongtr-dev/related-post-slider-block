@@ -20,6 +20,8 @@ import {
 	ToggleControl,
 	SelectControl,
 	TextControl,
+	RangeControl,
+	ColorPicker,
 	__experimentalBorderControl as BorderControl,
 	__experimentalBoxControl as BoxControl,
 } from "@wordpress/components";
@@ -62,6 +64,7 @@ export default function Edit({ attributes, setAttributes }) {
 		flatSlideItemBorder,
 		splittedSlideItemBorder,
 		slideItemBorderRadius,
+		slideItemShadow,
 	} = attributes;
 	const {
 		displayFeaturedImage,
@@ -70,6 +73,8 @@ export default function Edit({ attributes, setAttributes }) {
 		displayExcerpt,
 		displayReverseOrder,
 	} = display;
+	const { offsetX, offsetY, blurRadius, spreadRadius, shadowColor } =
+		slideItemShadow;
 
 	useEffect(() => {
 		if (totalPostsToShow > 0 && totalPostsToShow < postsPerSlide) {
@@ -489,6 +494,90 @@ export default function Edit({ attributes, setAttributes }) {
 						onChange={(newValues) => {
 							setAttributes({
 								slideItemBorderRadius: newValues,
+							});
+						}}
+					/>
+					<PanelRow>
+						{__("Slide item shadow", "related-post-slider-block")}
+					</PanelRow>
+					<RangeControl
+						__nextHasNoMarginBottom
+						label={__("Offset X", "related-post-slider-block")}
+						max={100}
+						min={-100}
+						allowReset={true}
+						resetFallbackValue={0}
+						value={offsetX}
+						onChange={(newOffsetX) => {
+							setAttributes({
+								slideItemShadow: {
+									...slideItemShadow,
+									offsetX: newOffsetX,
+								},
+							});
+						}}
+					/>
+					<RangeControl
+						__nextHasNoMarginBottom
+						label={__("Offset Y", "related-post-slider-block")}
+						max={100}
+						min={-100}
+						allowReset={true}
+						resetFallbackValue={0}
+						value={offsetY}
+						onChange={(newOffsetY) => {
+							setAttributes({
+								slideItemShadow: {
+									...slideItemShadow,
+									offsetY: newOffsetY,
+								},
+							});
+						}}
+					/>
+					<RangeControl
+						__nextHasNoMarginBottom
+						label={__("Blur radius", "related-post-slider-block")}
+						max={100}
+						min={0}
+						allowReset={true}
+						resetFallbackValue={0}
+						value={blurRadius}
+						onChange={(newBlurRadius) => {
+							setAttributes({
+								slideItemShadow: {
+									...slideItemShadow,
+									blurRadius: newBlurRadius,
+								},
+							});
+						}}
+					/>
+					<RangeControl
+						__nextHasNoMarginBottom
+						label={__("Spread radius", "related-post-slider-block")}
+						max={100}
+						min={-100}
+						allowReset={true}
+						resetFallbackValue={0}
+						value={spreadRadius}
+						onChange={(newSpreadRadius) => {
+							setAttributes({
+								slideItemShadow: {
+									...slideItemShadow,
+									spreadRadius: newSpreadRadius,
+								},
+							});
+						}}
+					/>
+					<PanelRow>{__("Shadow color", "related-post-slider-block")}</PanelRow>
+					<ColorPicker
+						enableAlpha={true}
+						defaultValue={shadowColor}
+						onChange={(newShadowColor) => {
+							setAttributes({
+								slideItemShadow: {
+									...slideItemShadow,
+									shadowColor: newShadowColor,
+								},
 							});
 						}}
 					/>

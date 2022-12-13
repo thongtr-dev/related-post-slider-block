@@ -73,7 +73,8 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 		'linkSlideItemBorder' => $link_slide_item_border,
 		'flatSlideItemBorder' => $flat_slide_item_border,
 		'splittedSlideItemBorder' => $splitted_slide_item_border,
-		'slideItemBorderRadius' => $slide_item_border_radius
+		'slideItemBorderRadius' => $slide_item_border_radius,
+		'slideItemShadow' => $slide_item_shadow,
 	] = $block_attributes;
 
 	[
@@ -117,9 +118,15 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 		'left' => $splitted_slide_item_border_left
 	] = $splitted_slide_item_border;
 
-	$border_property = $link_slide_item_border ? 'border:' . (isset($flat_slide_item_border['color']) ?  $flat_slide_item_border['color'] : 'transparent') . ' ' . (isset($flat_slide_item_border['style']) ?  $flat_slide_item_border['style'] : 'none') . ' ' . (isset($flat_slide_item_border['width']) ?  $flat_slide_item_border['width'] : '0') . ';' : 'border-top:' . (isset($splitted_slide_item_border_top['color']) ?  $splitted_slide_item_border_top['color'] : 'transparent') . ' ' . (isset($splitted_slide_item_border_top['style']) ?  $splitted_slide_item_border_top['style'] : 'none') . ' ' . (isset($splitted_slide_item_border_top['width']) ?  $splitted_slide_item_border_top['width'] : '0') . ';' . 'border-right:' . (isset($splitted_slide_item_border_right['color']) ?  $splitted_slide_item_border_right['color'] : 'transparent') . ' ' . (isset($splitted_slide_item_border_right['style']) ?  $splitted_slide_item_border_right['style'] : 'none') . ' ' . (isset($splitted_slide_item_border_right['width']) ?  $splitted_slide_item_border_right['width'] : '0') . ';' . 'border-bottom:' . (isset($splitted_slide_item_border_bottom['color']) ?  $splitted_slide_item_border_bottom['color'] : 'transparent') . ' ' . (isset($splitted_slide_item_border_bottom['style']) ?  $splitted_slide_item_border_bottom['style'] : 'none') . ' ' . (isset($splitted_slide_item_border_bottom['width']) ?  $splitted_slide_item_border_bottom['width'] : '0') . ';' . 'border-left:' . (isset($splitted_slide_item_border_left['color']) ?  $splitted_slide_item_border_left['color'] : 'transparent') . ' ' . (isset($splitted_slide_item_border_left['style']) ?  $splitted_slide_item_border_left['style'] : 'none') . ' ' . (isset($splitted_slide_item_border_left['width']) ?  $splitted_slide_item_border_left['width'] : '0') . ';';
+	$slide_padding_property = 'padding:' . (isset($item_padding_top) ? $item_padding_top  : '0') . ' ' . (isset($item_padding_right) ? $item_padding_right  : '0') . ' ' . (isset($item_padding_bottom) ? $item_padding_bottom  : '0') . ' ' . (isset($item_padding_left) ? $item_padding_left  : '0') . ';';
 
-	$border_radius_property = 'border-radius:' . (isset($slide_item_border_radius['top']) ? $slide_item_border_radius['top'] : '0') . ' ' . (isset($slide_item_border_radius['right']) ? $slide_item_border_radius['right'] : '0') . ' ' . (isset($slide_item_border_radius['bottom']) ? $slide_item_border_radius['bottom'] : '0') . ' ' . (isset($slide_item_border_radius['left']) ? $slide_item_border_radius['left'] : '0') . ';';
+	$slide_margin_property = 'margin:' . (isset($item_margin_top) ? $item_margin_top  : '0') . ' ' . (isset($item_margin_right) ? $item_margin_right  : '0') . ' ' . (isset($item_margin_bottom) ? $item_margin_bottom  : '0') . ' ' . (isset($item_margin_left) ? $item_margin_left  : '0') . ';';
+
+	$slide_border_property = $link_slide_item_border ? 'border:' . (isset($flat_slide_item_border['color']) ?  $flat_slide_item_border['color'] : 'transparent') . ' ' . (isset($flat_slide_item_border['style']) ?  $flat_slide_item_border['style'] : 'none') . ' ' . (isset($flat_slide_item_border['width']) ?  $flat_slide_item_border['width'] : '0') . ';' : 'border-top:' . (isset($splitted_slide_item_border_top['color']) ?  $splitted_slide_item_border_top['color'] : 'transparent') . ' ' . (isset($splitted_slide_item_border_top['style']) ?  $splitted_slide_item_border_top['style'] : 'none') . ' ' . (isset($splitted_slide_item_border_top['width']) ?  $splitted_slide_item_border_top['width'] : '0') . ';' . 'border-right:' . (isset($splitted_slide_item_border_right['color']) ?  $splitted_slide_item_border_right['color'] : 'transparent') . ' ' . (isset($splitted_slide_item_border_right['style']) ?  $splitted_slide_item_border_right['style'] : 'none') . ' ' . (isset($splitted_slide_item_border_right['width']) ?  $splitted_slide_item_border_right['width'] : '0') . ';' . 'border-bottom:' . (isset($splitted_slide_item_border_bottom['color']) ?  $splitted_slide_item_border_bottom['color'] : 'transparent') . ' ' . (isset($splitted_slide_item_border_bottom['style']) ?  $splitted_slide_item_border_bottom['style'] : 'none') . ' ' . (isset($splitted_slide_item_border_bottom['width']) ?  $splitted_slide_item_border_bottom['width'] : '0') . ';' . 'border-left:' . (isset($splitted_slide_item_border_left['color']) ?  $splitted_slide_item_border_left['color'] : 'transparent') . ' ' . (isset($splitted_slide_item_border_left['style']) ?  $splitted_slide_item_border_left['style'] : 'none') . ' ' . (isset($splitted_slide_item_border_left['width']) ?  $splitted_slide_item_border_left['width'] : '0') . ';';
+
+	$slide_border_radius_property = 'border-radius:' . (isset($slide_item_border_radius['top']) ? $slide_item_border_radius['top'] : '0') . ' ' . (isset($slide_item_border_radius['right']) ? $slide_item_border_radius['right'] : '0') . ' ' . (isset($slide_item_border_radius['bottom']) ? $slide_item_border_radius['bottom'] : '0') . ' ' . (isset($slide_item_border_radius['left']) ? $slide_item_border_radius['left'] : '0') . ';';
+
+	$slide_shadow_property = 'box-shadow:' . $slide_item_shadow['offsetX'] . 'px ' . $slide_item_shadow['offsetY'] . 'px ' . $slide_item_shadow['blurRadius'] . 'px ' . $slide_item_shadow['spreadRadius'] . 'px ' . $slide_item_shadow['shadowColor'] . ';';
 
 
 	$related_posts = new WP_Query(
@@ -161,7 +168,7 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 			$excerpt = $display_excerpt ? '<div class="excerpt"><p>' . esc_html(substr(get_the_excerpt($post_id), 0, $block_attributes['excerptLength'])) . '...</p></div>' : '';
 
 			$output .= '<div key="' . esc_html($post_id) . '" class="related-post-slider-item">
-				<div class="related-post-slider-item-content-wrapper" style="padding:' . (isset($item_padding_top) ? $item_padding_top  : '0') . ' ' . (isset($item_padding_right) ? $item_padding_right  : '0') . ' ' . (isset($item_padding_bottom) ? $item_padding_bottom  : '0') . ' ' . (isset($item_padding_left) ? $item_padding_left  : '0') . ';margin:' . (isset($item_margin_top) ? $item_margin_top  : '0') . ' ' . (isset($item_margin_right) ? $item_margin_right  : '0') . ' ' . (isset($item_margin_bottom) ? $item_margin_bottom  : '0') . ' ' . (isset($item_margin_left) ? $item_margin_left  : '0') . ';' . $border_property . $border_radius_property . '">
+				<div class="related-post-slider-item-content-wrapper" style="' . $slide_padding_property . $slide_margin_property . $slide_border_property . $slide_border_radius_property . $slide_shadow_property . '">
 				' . $featured_image . $category . '
 					<h3 class="title"><a href="' . esc_url(get_permalink($post_id)) . '">' . esc_html(get_the_title($post_id)) . '</a></h3> ' . $meta . $excerpt . '
 				</div>

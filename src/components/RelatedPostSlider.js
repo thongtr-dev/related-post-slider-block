@@ -13,6 +13,7 @@ export default function RelatedPostSlider({
 	flatSlideItemBorder,
 	splittedSlideItemBorder,
 	slideItemBorderRadius,
+	slideItemShadow,
 }) {
 	const { displayFeaturedImage, displayCategory, displayMeta, displayExcerpt } =
 		display;
@@ -23,6 +24,9 @@ export default function RelatedPostSlider({
 		bottom: slideItemBorderBottom,
 		left: slideItemBorderLeft,
 	} = splittedSlideItemBorder;
+
+	const { offsetX, offsetY, blurRadius, spreadRadius, shadowColor } =
+		slideItemShadow;
 
 	const slideItemBorderProperty = () => {
 		return linkSlideItemBorder
@@ -97,6 +101,7 @@ export default function RelatedPostSlider({
 										} ${itemMargin.bottom ?? "0"} ${itemMargin.left ?? "0"}`,
 										...slideItemBorderProperty(),
 										...slideItemBorderRadiusProperty(),
+										boxShadow: `${offsetX}px ${offsetY}px ${blurRadius}px ${spreadRadius}px ${shadowColor}`,
 									}}
 								>
 									{displayFeaturedImage && featuredImageSrc && (
