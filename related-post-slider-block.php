@@ -22,14 +22,14 @@
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
 
-function create_block_related_post_slider_block_block_init()
+function rpsb_related_post_slider_block_block_init()
 {
 	register_block_type(__DIR__ . '/build', array(
-		'render_callback' => 'related_post_slider_block_render_callback'
+		'render_callback' => 'rpsb_related_post_slider_block_render_callback'
 	));
 }
 
-function related_post_slider_block_enqueue_frontend_script($block_attributes)
+function rpsb_related_post_slider_block_enqueue_frontend_script($block_attributes)
 {
 	$script_path       = 'build/frontend.js';
 	$script_asset_path = 'build/frontend.asset.php';
@@ -58,11 +58,11 @@ function related_post_slider_block_enqueue_frontend_script($block_attributes)
 	wp_add_inline_script('jquery-slick', 'const sliderSettings = ' . json_encode($slider_settings), 'before');
 }
 
-function related_post_slider_block_render_callback($block_attributes, $content)
+function rpsb_related_post_slider_block_render_callback($block_attributes, $content)
 {
 
 	if (!is_admin()) {
-		related_post_slider_block_enqueue_frontend_script($block_attributes);
+		rpsb_related_post_slider_block_enqueue_frontend_script($block_attributes);
 	}
 
 	[
@@ -130,15 +130,15 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 
 	$slide_shadow_property = 'box-shadow:' . $slide_item_shadow['offsetX'] . 'px ' . $slide_item_shadow['offsetY'] . 'px ' . $slide_item_shadow['blurRadius'] . 'px ' . $slide_item_shadow['spreadRadius'] . 'px ' . $slide_item_shadow['shadowColor'] . ';';
 
-	if (!function_exists('return_category_id_array')) {
-		function return_category_id_array($category_object)
+	if (!function_exists('rpsb_return_category_id_array')) {
+		function rpsb_return_category_id_array($category_object)
 		{
 			return $category_object->term_id;
 		}
 	}
 
-	if (!function_exists('get_category_badges')) {
-		function get_category_badges($category_object)
+	if (!function_exists('rpsb_get_category_badges')) {
+		function rpsb_get_category_badges($category_object)
 		{
 			return '<span class="category"><a href="' . esc_url(get_category_link($category_object)) . '">' . esc_html($category_object->name) . '</a></span>';
 		}
@@ -149,7 +149,7 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 			'posts_per_page' => $total_posts_to_show,
 			'post_status' => 'publish',
 			'post__not_in' => array(get_the_ID()),
-			'category__in' => array_map('return_category_id_array', get_the_category(get_the_ID())),
+			'category__in' => array_map('rpsb_return_category_id_array', get_the_category(get_the_ID())),
 			'order' => $reverse_order ? 'ASC' : 'DESC'
 		)
 	);
@@ -167,7 +167,7 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 				)) . '</a>' : '';
 
 			$category = $display_category ? '<div class="terms">
-			<div class="categories">' . implode(' | ', array_map('get_category_badges', get_the_category($post_id))) . '</div></div>' : '';
+			<div class="categories">' . implode(' | ', array_map('rpsb_get_category_badges', get_the_category($post_id))) . '</div></div>' : '';
 
 			$meta = $display_meta ? '<div class="meta">
 			<span class="byline">
@@ -194,4 +194,4 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 	return $output;
 }
 
-add_action('init', 'create_block_related_post_slider_block_block_init');
+add_action('init', 'rpsb_related_post_slider_block_block_init');
