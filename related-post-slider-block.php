@@ -2,7 +2,7 @@
 
 /**
  * Plugin Name:       Related Post Slider Block
- * Description:       Add related post slider block.
+ * Description:       Related post slider carousel dynamic Gutenberg block.
  * Requires at least: 5.9
  * Requires PHP:      7.0
  * Version:           1.0.0

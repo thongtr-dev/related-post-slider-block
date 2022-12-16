@@ -6,7 +6,7 @@
 	"title": "Related Post Slider Block",
 	"category": "widgets",
 	"icon": "list-view",
-	"description": "Add related post slider block.",
+	"description": "Related post slider carousel dynamic Gutenberg block.",
 	"supports": {
 		"html": false,
 		"align": ["full", "wide"]
