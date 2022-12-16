@@ -1,7 +1,9 @@
 === Related Post Slider Block ===
-Contributors:      Thong Truong
+Contributors:      thongtruong
 Tags:              block, carousel, slider, related post slider, related post carousel slider, related post slider block
-Tested up to:      6.0
+Requires at least: 5.9
+Requires PHP:      7.0
+Tested up to:      6.1.1
 Stable tag:        1.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
