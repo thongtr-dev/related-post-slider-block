@@ -5,9 +5,7 @@ export default function postsData(posts) {
 			post._embedded["wp:featuredmedia"][0].media_details?.sizes.medium
 				.source_url,
 		featuredImageAlt: post._embedded["wp:featuredmedia"][0].alt_text,
-		category: post._embedded["wp:term"]["0"]["0"].name,
-		categoryId: post.categories[0],
-		categoryLink: post._embedded["wp:term"]["0"]["0"].link,
+		categories: post._embedded["wp:term"]["0"],
 		postLink: post.link,
 		postTitle: post.title.rendered,
 		postExcerpt: post.excerpt.rendered,

@@ -41,10 +41,12 @@ function related_post_slider_block_enqueue_frontend_script($block_attributes)
 		'breakpoints' => $breakpoints,
 	] = $block_attributes;
 
-	function return_responsive_settings($breakpoint)
-	{
-		['breakpointSettings' => $breakpoint_settings] = $breakpoint;
-		return $breakpoint_settings;
+	if (!function_exists('return_responsive_settings')) {
+		function return_responsive_settings($breakpoint)
+		{
+			['breakpointSettings' => $breakpoint_settings] = $breakpoint;
+			return $breakpoint_settings;
+		}
 	}
 
 	$slider_settings = [
@@ -128,13 +130,26 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 
 	$slide_shadow_property = 'box-shadow:' . $slide_item_shadow['offsetX'] . 'px ' . $slide_item_shadow['offsetY'] . 'px ' . $slide_item_shadow['blurRadius'] . 'px ' . $slide_item_shadow['spreadRadius'] . 'px ' . $slide_item_shadow['shadowColor'] . ';';
 
+	if (!function_exists('return_category_id_array')) {
+		function return_category_id_array($category_object)
+		{
+			return $category_object->term_id;
+		}
+	}
+
+	if (!function_exists('get_category_badges')) {
+		function get_category_badges($category_object)
+		{
+			return '<span class="category"><a href="' . esc_url(get_category_link($category_object)) . '">' . esc_html($category_object->name) . '</a></span>';
+		}
+	}
 
 	$related_posts = new WP_Query(
 		array(
 			'posts_per_page' => $total_posts_to_show,
 			'post_status' => 'publish',
 			'post__not_in' => array(get_the_ID()),
-			'category__in' => array(get_the_category(get_the_ID())[0]->term_id),
+			'category__in' => array_map('return_category_id_array', get_the_category(get_the_ID())),
 			'order' => $reverse_order ? 'ASC' : 'DESC'
 		)
 	);
@@ -151,9 +166,8 @@ function related_post_slider_block_render_callback($block_attributes, $content)
 					'class' => 'attachment-large size-large featured'
 				)) . '</a>' : '';
 
-			$category = $display_category ? '<div class="term">
-			<a href="' . esc_url(get_category_link(get_the_category($post_id)[0])) . '">' . esc_html(get_the_category($post_id)[0]->name) . '</a>
-			</div>' : '';
+			$category = $display_category ? '<div class="terms">
+			<div class="categories">' . implode(' | ', array_map('get_category_badges', get_the_category($post_id))) . '</div></div>' : '';
 
 			$meta = $display_meta ? '<div class="meta">
 			<span class="byline">

@@ -82,8 +82,7 @@ export default function RelatedPostSlider({
 							postTitle,
 							featuredImageSrc,
 							featuredImageAlt,
-							category,
-							categoryLink,
+							categories,
 							author,
 							authorLink,
 							postExcerpt,
@@ -114,8 +113,24 @@ export default function RelatedPostSlider({
 										</a>
 									)}
 									{displayCategory && (
-										<div className="term">
-											<a href={categoryLink}>{category}</a>
+										<div className="terms">
+											<div className="categories">
+												{categories.map((category, index) =>
+													index !== 0 ? (
+														<span
+															key={category.id}
+															className="category"
+															style={{ marginLeft: "5px" }}
+														>
+															| <a href={category.link}>{category.name}</a>
+														</span>
+													) : (
+														<span key={category.id} className="category">
+															<a href={category.link}>{category.name}</a>
+														</span>
+													)
+												)}
+											</div>
 										</div>
 									)}
 									<h3 className="title">
