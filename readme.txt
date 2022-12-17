@@ -12,7 +12,13 @@ Related post carousel slider dynamic Gutenberg block. Customize the post slider 
 
 == Description ==
 
-This plugin add a dynamic related post carousel slider block to WordPress block editor with multiple controls for the carousel and the slide items:
+Upon activating this plugin, you will not see any new menu page inside WP admin dashboard. Instead, this plugin adds a dynamic block straight to the block editor. You can then use the block settings sidebar to customize and edit everything related to the block.
+
+This block picks the posts that have the same category/categories of the current post and display them in a carousel slider.
+
+To insert and use the block, inside the post editor, underneath the main post content (or any position you wish), type '/related', you should see the block called 'Related Post Slider Block'. Choose and insert it to the post editor.
+
+Here are the controls that you can customize and edit:
 ✅ Display controls:
     - Toggle on/off featured image for each slide.
     - Toggle on/off category badge for each slide.
@@ -34,13 +40,13 @@ This plugin add a dynamic related post carousel slider block to WordPress block 
 
 1. Upload the plugin files to the `/wp-content/plugins/related-post-slider-block` directory, or install the plugin through the WordPress plugins screen directly.
 2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Edit a post and type "/related" to choose the Related Post Slider Block and begin editting.
+3. Edit a post and type '/related' to choose the Related Post Slider Block and begin editting.
 
 == Frequently Asked Questions ==
 
 = What are the slide items to be displayed? =
 
-The slide items are related posts which are in the same categories of the current post.
+The slide items are related posts which are in the same category/categories of the current post.
 
 = Can I hide the featured image for all slide items? =
 
