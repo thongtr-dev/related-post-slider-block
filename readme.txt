@@ -1,6 +1,6 @@
 === Related Post Slider Block ===
 Contributors:      thongtruong
-Tags:              block, carousel, slider, related post slider, related post carousel slider, related post slider block
+Tags:              block, carousel, slider, related post slider, related post carousel slider, related post slider block, related post carousel slider block, dynamic related post slider block, dynamic related post carousel slider block
 Requires at least: 5.9
 Requires PHP:      7.0
 Tested up to:      6.1.1
@@ -8,11 +8,11 @@ Stable tag:        1.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Related post slider carousel dynamic Gutenberg block.
+Related post carousel slider dynamic Gutenberg block. Customize the post slider right inside the post editor without going back and forth between the admin dashboard and the post editor.
 
 == Description ==
 
-Add a related post slider carousel block to WordPress block editor with multiple controls for carousel and slide items:
+This plugin add a dynamic related post carousel slider block to WordPress block editor with multiple controls for the carousel and the slide items:
 ✅ Display controls:
     - Toggle on/off featured image for each slide.
     - Toggle on/off category badge for each slide.
@@ -40,7 +40,7 @@ Add a related post slider carousel block to WordPress block editor with multiple
 
 = What are the slide items to be displayed? =
 
-The slide items are related posts which are in the same category as the current post.
+The slide items are related posts which are in the same categories of the current post.
 
 = Can I hide the featured image for all slide items? =
 
@@ -64,7 +64,7 @@ The mininum is 1 post and the maximum is 4 posts each slide.
 
 = Can I have different number of posts per slide for each device(desktop, tablet, mobile)?  =
 
-Yes, you can define the number of posts per slide (min is 1 and max is 4) for up to 3 device breakpoints, in this case: desktop, tablet and mobile.
+Yes, you can define the number of posts per slide (min is 1 and max is 4) for up to 3 device breakpoints, which are desktop, tablet and mobile.
 
 = Can I edit the breakpoints? =
 
@@ -91,7 +91,7 @@ This featured is in development.
 1. Display control panel
 2. Responsive control panel
 3. Dimension(padding, margin) control panel
-4. Slide item border control and slide item border radius control in Style control panel
+4. Slide item border control and border radius control in Style control panel
 5. Slide item box shadow control in Style control panel
 6. The Related Post Slider Block in the editor
 7. The Related Post Slider Block on frontend
