@@ -92,6 +92,15 @@ The slide item will display all categories assigned to the post. Each category i
 
 This featured is in development.
 
+= When I create a new post and insert the slider, an error appears which said "This block has encountered an error and cannot be previewed.". How to fix this?
+
+No, this is not a bug and is a known behavior. When you create a new post, please follow these steps if you encounter the error again:
+    1. Assign categories for the post
+    2. Click Publish/Update/Save draft when you finish editing the post
+    3. Delete the slider block you've inserted before
+    4. Reinsert the slider block
+The slider should now be functional as normal.
+
 == Screenshots ==
 
 1. Display control panel
