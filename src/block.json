@@ -2,11 +2,11 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
 	"name": "rpsb/related-post-slider-block",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"title": "Related Post Slider Block",
 	"category": "widgets",
 	"icon": "list-view",
-	"description": "Related post carousel slider dynamic Gutenberg block",
+	"description": "A truly WYSIWYG, responsive and dynamic related post carousel slider Gutenberg block",
 	"supports": {
 		"html": false,
 		"align": ["full", "wide"]
