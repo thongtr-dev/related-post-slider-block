@@ -2,11 +2,12 @@
 
 /**
  * Plugin Name:       Related Post Slider Block
- * Description:       A truly WYSIWYG, responsive and dynamic related post carousel slider Gutenberg block. Customize the post slider right inside the post editor without going back and forth between the admin dashboard and the post editor.
+ * Description:       A truly WYSIWYG, responsive and dynamic related post carousel slider Gutenberg block.
  * Requires at least: 5.9
  * Requires PHP:      7.0
  * Version:           1.0.1
  * Author:            Thong Truong
+ * Author URI:        https://thongtruong.com
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       related-post-slider-block

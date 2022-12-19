@@ -8,7 +8,7 @@ Stable tag:        1.0.1
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-A truly WYSIWYG, responsive and dynamic related post carousel slider Gutenberg block. Customize the post slider right inside the post editor without going back and forth between the admin dashboard and the post editor.
+A truly WYSIWYG, responsive and dynamic related post carousel slider Gutenberg block.
 
 == Description ==
 
