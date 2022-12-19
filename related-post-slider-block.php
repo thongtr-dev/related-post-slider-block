@@ -5,7 +5,7 @@
  * Description:       A truly WYSIWYG, responsive and dynamic related post carousel slider Gutenberg block.
  * Requires at least: 5.9
  * Requires PHP:      7.0
- * Version:           1.0.1
+ * Version:           1.0.2
  * Author:            Thong Truong
  * Author URI:        https://thongtruong.com
  * License:           GPL-2.0-or-later
