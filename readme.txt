@@ -92,7 +92,7 @@ The slide item will display all categories assigned to the post. Each category i
 
 This featured is in development.
 
-= When I create a new post and insert the slider, an error appears which said "This block has encountered an error and cannot be previewed.". How to fix this?
+= When I create a new post and insert the slider, an error appears which said "This block has encountered an error and cannot be previewed.". How to fix this? =
 
 No, this is not a bug and is a known behavior. When you create a new post, please follow these steps if you encounter the error again:
     1. Assign categories for the post
@@ -100,6 +100,10 @@ No, this is not a bug and is a known behavior. When you create a new post, pleas
     3. Delete the slider block you've inserted before
     4. Reinsert the slider block
 The slider should now be functional as normal.
+
+= The slider doesn't display on frontend althought works normally in the post editor? =
+
+If the slider in the post editor appears and is functional but not on the frontend, please make sure jQuery is enabled for your WordPress site.
 
 == Screenshots ==
 
@@ -120,6 +124,12 @@ The slider should now be functional as normal.
 /assets/screenshot-7.png
 
 == Changelog ==
+
+= 1.0.2 =
+* Add 1 faq
+
+= 1.0.1 =
+* Update plugin short description
 
 = 1.0.0 =
 * Initial release
