@@ -1,8 +1,8 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 2,
-	"name": "rpsb/related-post-slider-block",
-	"version": "1.0.2",
+	"name": "thongtruong/related-post-slider-block",
+	"version": "2.0.0",
 	"title": "Related Post Slider Block",
 	"category": "widgets",
 	"icon": "list-view",

@@ -4,9 +4,9 @@
  * Plugin Name:       Related Post Slider Block
  * Description:       A truly WYSIWYG, responsive and dynamic related post carousel slider Gutenberg block.
  * Requires at least: 5.9
- * Requires PHP:      7.0
- * Version:           1.0.2
- * Author:            Thong Truong
+ * Requires PHP:      7.4
+ * Version:           2.0.0
+ * Author:            thongtruong
  * Author URI:        https://thongtruong.com
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -23,14 +23,14 @@
  * @see https://developer.wordpress.org/reference/functions/register_block_type/
  */
 
-function rpsb_related_post_slider_block_block_init()
+function thongtruong_related_post_slider_block_block_init()
 {
 	register_block_type(__DIR__ . '/build', array(
-		'render_callback' => 'rpsb_related_post_slider_block_render_callback'
+		'render_callback' => 'thongtruong_related_post_slider_block_render_callback'
 	));
 }
 
-function rpsb_related_post_slider_block_enqueue_frontend_script($block_attributes)
+function thongtruong_related_post_slider_block_enqueue_frontend_script($block_attributes)
 {
 	$script_path       = 'build/frontend.js';
 	$script_asset_path = 'build/frontend.asset.php';
@@ -59,11 +59,11 @@ function rpsb_related_post_slider_block_enqueue_frontend_script($block_attribute
 	wp_add_inline_script('jquery-slick', 'const sliderSettings = ' . json_encode($slider_settings), 'before');
 }
 
-function rpsb_related_post_slider_block_render_callback($block_attributes, $content)
+function thongtruong_related_post_slider_block_render_callback($block_attributes, $content)
 {
 
 	if (!is_admin()) {
-		rpsb_related_post_slider_block_enqueue_frontend_script($block_attributes);
+		thongtruong_related_post_slider_block_enqueue_frontend_script($block_attributes);
 	}
 
 	[
@@ -131,15 +131,15 @@ function rpsb_related_post_slider_block_render_callback($block_attributes, $cont
 
 	$slide_shadow_property = 'box-shadow:' . $slide_item_shadow['offsetX'] . 'px ' . $slide_item_shadow['offsetY'] . 'px ' . $slide_item_shadow['blurRadius'] . 'px ' . $slide_item_shadow['spreadRadius'] . 'px ' . $slide_item_shadow['shadowColor'] . ';';
 
-	if (!function_exists('rpsb_return_category_id_array')) {
-		function rpsb_return_category_id_array($category_object)
+	if (!function_exists('thongtruong_return_category_id_array')) {
+		function thongtruong_return_category_id_array($category_object)
 		{
 			return $category_object->term_id;
 		}
 	}
 
-	if (!function_exists('rpsb_get_category_badges')) {
-		function rpsb_get_category_badges($category_object)
+	if (!function_exists('thongtruong_get_category_badges')) {
+		function thongtruong_get_category_badges($category_object)
 		{
 			return '<span class="category"><a href="' . esc_url(get_category_link($category_object)) . '">' . esc_html($category_object->name) . '</a></span>';
 		}
@@ -150,7 +150,7 @@ function rpsb_related_post_slider_block_render_callback($block_attributes, $cont
 			'posts_per_page' => $total_posts_to_show,
 			'post_status' => 'publish',
 			'post__not_in' => array(get_the_ID()),
-			'category__in' => array_map('rpsb_return_category_id_array', get_the_category(get_the_ID())),
+			'category__in' => array_map('thongtruong_return_category_id_array', get_the_category(get_the_ID())),
 			'order' => $reverse_order ? 'ASC' : 'DESC'
 		)
 	);
@@ -168,7 +168,7 @@ function rpsb_related_post_slider_block_render_callback($block_attributes, $cont
 				)) . '</a>' : '';
 
 			$category = $display_category ? '<div class="terms">
-			<div class="categories">' . implode(' | ', array_map('rpsb_get_category_badges', get_the_category($post_id))) . '</div></div>' : '';
+			<div class="categories">' . implode(' | ', array_map('thongtruong_get_category_badges', get_the_category($post_id))) . '</div></div>' : '';
 
 			$meta = $display_meta ? '<div class="meta">
 			<span class="byline">
@@ -195,4 +195,4 @@ function rpsb_related_post_slider_block_render_callback($block_attributes, $cont
 	return $output;
 }
 
-add_action('init', 'rpsb_related_post_slider_block_block_init');
+add_action('init', 'thongtruong_related_post_slider_block_block_init');
