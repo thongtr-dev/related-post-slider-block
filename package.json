@@ -15,11 +15,11 @@
 		"start": "wp-scripts start"
 	},
 	"devDependencies": {
-		"@wordpress/scripts": "^21.0.2",
+		"@wordpress/scripts": "^26.1.0",
 		"react-slick": "^0.29.0",
 		"slick-carousel": "^1.8.1"
 	},
 	"dependencies": {
-		"@wordpress/icons": "^9.13.0"
+		"@wordpress/icons": "^9.21.0"
 	}
 }
